@@ -1,0 +1,38 @@
+<h2 mat-dialog-title>User Search</h2>
+<form [formGroup]="form" (ngSubmit)="submit($event)" novalidate>
+  <mat-dialog-content>
+    <div fxLayout="column">
+      <mat-form-field fxFlex>
+        <input matInput placeholder="Username" formControlName="username">
+      </mat-form-field>
+      <mat-form-field fxFlex>
+        <input matInput type="email" placeholder="Email" formControlName="email">
+      </mat-form-field>
+      <mat-form-field fxFlex>
+        <mat-select placeholder="Status" formControlName="status">
+          <mat-option [value]="null">None</mat-option>
+          <mat-option *ngFor="let item of statusOptions" [value]="item.value.toString()">{{item.label}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div fxLayout="row" fxLayout.xs="column">
+        <mat-form-field fxFlex>
+          <input matInput placeholder="Create Time Start" [matDatepicker]="picker1" formControlName="createTimeStart">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker [touchUi]="touchUi" #picker1></mat-datepicker>
+        </mat-form-field>
+        <div fxFlex="24px" fxHide.xs></div>
+        <mat-form-field fxFlex>
+          <input matInput placeholder="Create Time End" [matDatepicker]="picker2" formControlName="createTimeEnd">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker [touchUi]="touchUi" #picker2></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions fxLayout="row-reverse">
+    <div>
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-button type="submit" [disabled]="form.invalid">Search</button>
+    </div>
+  </mat-dialog-actions>
+</form>

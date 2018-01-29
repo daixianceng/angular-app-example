@@ -1,0 +1,53 @@
+mat-sidenav-container {
+  min-height: 400px;
+}
+
+mat-sidenav {
+  width: 80vw;
+}
+
+mat-toolbar {
+  box-shadow: 0 0 15px rgba(0, 0, 0, .8);
+}
+
+mat-toolbar .sidenav-button {
+  margin-right: 16px;
+}
+
+mat-toolbar .brand {
+  font-weight: 200;
+}
+
+mat-toolbar .avatar {
+  width: 34px;
+  height: 34px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+mat-card {
+  padding: 16px;
+  background: url(/assets/images/Textured-background.jpg) center center repeat-x;
+}
+
+mat-card .mat-card-header {
+  margin-bottom: 16px;
+}
+
+mat-card .mat-card-avatar {
+  height: 50px;
+  width: 50px;
+}
+
+mat-card .mat-card-title {
+  font-size: 20px;
+  color: #fff;
+}
+
+mat-card .mat-card-subtitle {
+  color: #fff;
+}
+
+.container {
+  padding: 16px;
+}

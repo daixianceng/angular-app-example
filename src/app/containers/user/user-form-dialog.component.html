@@ -1,0 +1,71 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<form [formGroup]="form" (ngSubmit)="submit($event)" novalidate>
+  <mat-dialog-content>
+    <div fxLayout="column">
+      <mat-form-field fxFlex>
+        <input matInput placeholder="Username" formControlName="username" [readonly]="readOnly">
+        <mat-error>
+          <ng-template [ngIf]="username.hasError('required')">
+            Username is required.
+          </ng-template>
+          <ng-template [ngIf]="username.hasError('minlength') || username.hasError('maxlength')">
+            Username must be at between 2 and 20 characters long.
+          </ng-template>
+          <ng-template [ngIf]="username.hasError('message')">
+            {{username.getError('message')}}
+          </ng-template>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex>
+        <input matInput type="email" placeholder="Email" formControlName="email" [readonly]="readOnly">
+        <mat-error>
+          <ng-template [ngIf]="email.hasError('required')">
+            Email is required.
+          </ng-template>
+          <ng-template [ngIf]="email.hasError('email')">
+            Your email is invalid.
+          </ng-template>
+          <ng-template [ngIf]="email.hasError('message')">
+            {{email.getError('message')}}
+          </ng-template>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex *ngIf="!readOnly">
+        <input matInput type="password" placeholder="Password" formControlName="passwordNew">
+        <mat-hint>
+          Password is required when creating a new user.
+        </mat-hint>
+        <mat-error>
+          <ng-template [ngIf]="passwordNew.hasError('required')">
+            Password is required.
+          </ng-template>
+          <ng-template [ngIf]="passwordNew.hasError('minlength') || passwordNew.hasError('maxlength')">
+            Password must be at between 6 and 40 characters long.
+          </ng-template>
+          <ng-template [ngIf]="passwordNew.hasError('message')">
+            {{passwordNew.getError('message')}}
+          </ng-template>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex>
+        <mat-select placeholder="Status" formControlName="status">
+          <mat-option *ngFor="let item of statusOptions" [value]="item.value">{{item.label}}</mat-option>
+        </mat-select>
+        <mat-error>
+          <ng-template [ngIf]="status.hasError('required')">
+            Status is required.
+          </ng-template>
+          <ng-template [ngIf]="status.hasError('message')">
+            {{status.getError('message')}}
+          </ng-template>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions fxLayout="row-reverse">
+    <div>
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-button type="submit" [disabled]="readOnly || form.invalid">Submit</button>
+    </div>
+  </mat-dialog-actions>
+</form>

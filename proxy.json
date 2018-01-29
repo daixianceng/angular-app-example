@@ -1,0 +1,14 @@
+{
+  "/api": {
+    "target": {
+      "host": "yii2-app-example.backend-api",
+      "protocol": "http:",
+      "port": 80
+    },
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api": ""
+    }
+  }
+}

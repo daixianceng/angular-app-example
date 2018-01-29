@@ -1,0 +1,36 @@
+<div fxLayout="row" fxLayoutAlign="center">
+  <div fxFlex="30%" fxFlex.xs="100%" fxFlex.sm="60%">
+    <div class="container-login">
+      <h1 class="mat-display-3">Login</h1>
+      <form [formGroup]="form" (ngSubmit)="submit($event)" novalidate>
+        <div fxLayout="column">
+          <mat-form-field fxFlex>
+            <input matInput placeholder="Username" formControlName="username" [readonly]="readOnly">
+            <mat-error>
+              <ng-template [ngIf]="username.hasError('required')">
+                Username is required.
+              </ng-template>
+              <ng-template [ngIf]="username.hasError('message')">
+                {{username.getError('message')}}
+              </ng-template>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field fxFlex>
+            <input matInput type="password" placeholder="Password" formControlName="password" [readonly]="readOnly">
+            <mat-error>
+              <ng-template [ngIf]="password.hasError('required')">
+                Password is required.
+              </ng-template>
+              <ng-template [ngIf]="password.hasError('message')">
+                {{password.getError('message')}}
+              </ng-template>
+            </mat-error>
+          </mat-form-field>
+          <div fxFlex>
+            <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

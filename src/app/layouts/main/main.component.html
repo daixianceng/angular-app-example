@@ -1,0 +1,40 @@
+<mat-sidenav-container>
+  <mat-sidenav #sidenav mode="over">
+    <div fxLayout="column">
+      <mat-card>
+        <mat-card-header>
+          <img mat-card-avatar src="//thirdqq.qlogo.cn/g?b=oidb&k=Je6UtrECYicVTfh3GlKkbIQ&s=100" />
+        </mat-card-header>
+        <mat-card-content>
+          <mat-card-title>Cosmo Dai</mat-card-title>
+          <mat-card-subtitle>daixianceng@gmail.com</mat-card-subtitle>
+        </mat-card-content>
+      </mat-card>
+      <app-nav (navigate)="sidenav.close()"></app-nav>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button mat-icon-button class="sidenav-button" fxShow="false" fxShow.lt-md="true" (click)="sidenav.open()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span fxFlex="auto" class="brand">{{name}}</span>
+      <button mat-button [matMenuTriggerFor]="profileMenu" fxShow="true" fxShow.lt-md="false">
+        <img class="avatar" src="//thirdqq.qlogo.cn/g?b=oidb&k=Je6UtrECYicVTfh3GlKkbIQ&s=100" /> My account
+      </button>
+      <mat-menu #profileMenu>
+        <a mat-menu-item routerLink="/user/profile" routerLinkActive="active">Profile</a>
+        <button mat-menu-item (click)="logout()">Logout</button>
+      </mat-menu>
+    </mat-toolbar>
+    <div fxLayout="row">
+      <div fxFlex="20%" fxShow="true" fxShow.lt-md="false">
+        <app-nav></app-nav>
+      </div>
+      <div fxFlex="80%" fxFlex.lt-md="100%" class="container">
+        <app-title>{{title}}</app-title>
+        <router-outlet outlet="main"></router-outlet>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

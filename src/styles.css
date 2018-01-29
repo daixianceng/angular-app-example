@@ -1,0 +1,23 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import '~@swimlane/ngx-datatable/release/index.css';
+@import '~@swimlane/ngx-datatable/release/themes/material.css';
+@import '~@swimlane/ngx-datatable/release/assets/icons.css';
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.mat-drawer-container {
+  background-color: #fff;
+}
+
+.mat-dialog-container {
+  min-width: 40vw;
+}
+
+.mat-dialog-container .mat-form-field {
+  width: initial;
+}
