@@ -4,7 +4,7 @@ import { ObservableMedia } from '@angular/flex-layout';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import * as moment from 'moment';
 
-import { splitTimeRange, TIME_RANGE_SEPARATOR } from 'app/common';
+import { splitTimeRange, concatTimesFormatByISOString, TIME_RANGE_SEPARATOR } from 'app/common';
 import { UserSearch, USER_STATUS } from 'app/models';
 
 @Component({
@@ -74,15 +74,17 @@ export class UserSearchDialogComponent implements OnInit {
   get modelMerged(): UserSearch {
     const formValue = this.formValue;
     if (formValue) {
+      const createTimeRange = concatTimesFormatByISOString(
+        formValue.createTimeStart,
+        formValue.createTimeEnd,
+        this.timeRangeSeparator
+      );
       return {
         ...this.model,
         username: formValue.username,
         email: formValue.email,
         status: formValue.status,
-        createTimeRange: [
-          formValue.createTimeStart ? formValue.createTimeStart.toISOString() : '',
-          formValue.createTimeEnd ? formValue.createTimeEnd.toISOString() : ''
-        ].join(this.timeRangeSeparator)
+        createTimeRange: createTimeRange === this.timeRangeSeparator ? '' : createTimeRange
       };
     } else {
       return { ...this.model };

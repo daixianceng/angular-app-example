@@ -1,4 +1,5 @@
 import { SortPropDir } from '@swimlane/ngx-datatable';
+import { Moment } from 'moment';
 
 import { Pagination, DatatablePage, ResponseData } from 'app/models';
 import { DATA_STATUS_SUCCESS } from './constants';
@@ -46,4 +47,14 @@ export function splitTimeRange(timeRange: string | undefined | null, separator: 
     }
   }
   return [time1, time2];
+}
+
+export function concatTimesFormatByISOString(
+  moment1: Moment | undefined | null,
+  moment2: Moment | undefined | null,
+  separator: string
+): string {
+  const time1 = moment1 ? moment1.toISOString() : '';
+  const time2 = moment2 ? moment2.toISOString() : '';
+  return [time1, time2].join(separator);
 }
