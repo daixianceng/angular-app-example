@@ -73,16 +73,20 @@ export class UserSearchDialogComponent implements OnInit {
 
   get modelMerged(): UserSearch {
     const formValue = this.formValue;
-    return {
-      ...this.model,
-      username: formValue.username,
-      email: formValue.email,
-      status: formValue.status,
-      createTimeRange: [
-        formValue.createTimeStart ? formValue.createTimeStart.toISOString() : '',
-        formValue.createTimeEnd ? formValue.createTimeEnd.toISOString() : ''
-      ].join(this.timeRangeSeparator)
-    };
+    if (formValue) {
+      return {
+        ...this.model,
+        username: formValue.username,
+        email: formValue.email,
+        status: formValue.status,
+        createTimeRange: [
+          formValue.createTimeStart ? formValue.createTimeStart.toISOString() : '',
+          formValue.createTimeEnd ? formValue.createTimeEnd.toISOString() : ''
+        ].join(this.timeRangeSeparator)
+      };
+    } else {
+      return { ...this.model };
+    }
   }
 
   submit(e: Event): void {
