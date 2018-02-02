@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { Router, NavigationStart } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -17,8 +17,8 @@ export class NavComponent {
   ) {
     router.events
       .filter(() => this.shouldEmit)
-      .filter((event) => event instanceof NavigationStart)
-      .subscribe((event: NavigationStart) => {
+      .filter((event) => event instanceof NavigationEnd)
+      .subscribe((event: NavigationEnd) => {
         this.navigate.emit(event);
         this.shouldEmit = false;
       });
