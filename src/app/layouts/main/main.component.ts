@@ -14,6 +14,7 @@ export class MainComponent {
 
   name = environment.appName;
   title: string;
+  primaryNav = true;
 
   constructor(
     private router: Router,
@@ -29,6 +30,10 @@ export class MainComponent {
       .subscribe((data: Data) => {
         this.title = data.title;
       });
+  }
+
+  switchNav(): void {
+    this.primaryNav = !this.primaryNav;
   }
 
   logout(): void {

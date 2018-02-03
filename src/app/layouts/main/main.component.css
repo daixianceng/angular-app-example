@@ -39,12 +39,22 @@ mat-card .mat-card-avatar {
   width: 50px;
 }
 
+mat-card .mat-card-content a {
+  cursor: pointer;
+}
+
 mat-card .mat-card-title {
-  font-size: 20px;
+  font-size: 18px;
   color: #fff;
+  margin-bottom: 5px;
 }
 
 mat-card .mat-card-subtitle {
+  color: #fff;
+  margin-bottom: 0;
+}
+
+mat-card .mat-icon {
   color: #fff;
 }
 

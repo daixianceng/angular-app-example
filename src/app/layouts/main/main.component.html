@@ -6,11 +6,30 @@
           <img mat-card-avatar src="//thirdqq.qlogo.cn/g?b=oidb&k=Je6UtrECYicVTfh3GlKkbIQ&s=100" />
         </mat-card-header>
         <mat-card-content>
-          <mat-card-title>Cosmo Dai</mat-card-title>
-          <mat-card-subtitle>daixianceng@gmail.com</mat-card-subtitle>
+          <a fxLayout="row" (click)="switchNav()">
+            <div fxFlex>
+              <mat-card-title>Cosmo Dai</mat-card-title>
+              <mat-card-subtitle>daixianceng@gmail.com</mat-card-subtitle>
+            </div>
+            <div fxFlex="24px" fxFlexAlign="center">
+              <mat-icon *ngIf="primaryNav" color="primary">arrow_drop_down</mat-icon>
+              <mat-icon *ngIf="!primaryNav">arrow_drop_up</mat-icon>
+            </div>
+          </a>
         </mat-card-content>
       </mat-card>
-      <app-nav (navigate)="sidenav.close()"></app-nav>
+      <app-nav *ngIf="primaryNav" (navigate)="sidenav.close()"></app-nav>
+      <mat-nav-list *ngIf="!primaryNav">
+        <h3 matSubheader>Account</h3>
+        <a mat-list-item routerLink="/user/profile" routerLinkActive="active" (click)="sidenav.close()">
+          <mat-icon>account_circle</mat-icon>
+          <span fxFlexOffset="30px">Profile</span>
+        </a>
+        <a mat-list-item (click)="logout()">
+          <mat-icon>directions_run</mat-icon>
+          <span fxFlexOffset="30px">Logout</span>
+        </a>
+      </mat-nav-list>
     </div>
   </mat-sidenav>
   <mat-sidenav-content>
