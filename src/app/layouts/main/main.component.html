@@ -8,8 +8,8 @@
         <mat-card-content>
           <a fxLayout="row" (click)="switchNav()">
             <div fxFlex>
-              <mat-card-title>Cosmo Dai</mat-card-title>
-              <mat-card-subtitle>daixianceng@gmail.com</mat-card-subtitle>
+              <mat-card-title>{{user.username}}</mat-card-title>
+              <mat-card-subtitle>{{user.email}}</mat-card-subtitle>
             </div>
             <div fxFlex="24px" fxFlexAlign="center">
               <mat-icon *ngIf="primaryNav" color="primary">arrow_drop_down</mat-icon>

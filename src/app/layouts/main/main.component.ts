@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute, Data } from '@angular/router';
 
 import { LOGIN_URL } from 'app/common';
+import { User } from 'app/models';
 import { AuthStore } from 'app/stores';
 import { environment } from 'environments/environment';
 
@@ -15,6 +16,7 @@ export class MainComponent {
   name = environment.appName;
   title: string;
   primaryNav = true;
+  user: User;
 
   constructor(
     private router: Router,
@@ -29,6 +31,11 @@ export class MainComponent {
       .switchMap((childRoute) => childRoute.data)
       .subscribe((data: Data) => {
         this.title = data.title;
+      });
+    this.authStore.user
+      .filter((model) => model !== null)
+      .subscribe((model: User) => {
+        this.user = model;
       });
   }
 
