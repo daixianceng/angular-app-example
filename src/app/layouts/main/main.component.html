@@ -18,7 +18,7 @@
           </a>
         </mat-card-content>
       </mat-card>
-      <app-nav *ngIf="primaryNav" (navigate)="sidenav.close()"></app-nav>
+      <app-nav *ngIf="primaryNav" (routerClick)="sidenav.close()"></app-nav>
       <mat-nav-list *ngIf="!primaryNav">
         <h3 matSubheader>Account</h3>
         <a mat-list-item routerLink="/user/profile" routerLinkActive="active" (click)="sidenav.close()">
