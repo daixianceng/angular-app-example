@@ -9,7 +9,7 @@ import { LoginForm, ErrorMessage, ResponseData } from 'app/models';
 
 @Component({
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private authStore: AuthStore,
     private styleService: StyleService
   ) {
-    styleService.addStyle('loginStyle', require('./style.css'));
+    styleService.addStyle('loginStyle', require('./style.scss'));
   }
 
   ngOnInit(): void {

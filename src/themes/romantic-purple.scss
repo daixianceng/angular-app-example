@@ -1,0 +1,7 @@
+@import '~@angular/material/theming';
+
+$romantic-purple-primary: mat-palette($mat-purple, 700, 100, 900);
+$romantic-purple-accent: mat-palette($mat-teal, 600);
+$romantic-purple-warn: mat-palette($mat-red);
+
+$romantic-purple-theme: mat-light-theme($romantic-purple-primary, $romantic-purple-accent, $romantic-purple-warn);

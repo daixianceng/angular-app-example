@@ -1,0 +1,6 @@
+@import 'app-theme';
+
+html,
+body {
+  background-color: mat-color($app-theme-background, background);
+}

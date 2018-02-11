@@ -1,0 +1,7 @@
+@import '~@angular/material/theming';
+
+$elegant-black-primary: mat-palette($mat-grey, 900);
+$elegant-black-accent: mat-palette($mat-blue-grey, 600);
+$elegant-black-warn: mat-palette($mat-red);
+
+$elegant-black-theme: mat-dark-theme($elegant-black-primary, $elegant-black-accent, $elegant-black-warn);

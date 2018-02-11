@@ -1,0 +1,19 @@
+@import 'app-theme';
+
+.container-login {
+  background-color: mat-color($app-theme-background, card);
+  box-shadow: map_get($mat-grey, if($app-theme-is-dark, 900, 400)) 0 15px 50px;
+  margin: 50px 15px;
+  padding: 20px 15px;
+
+  h1 {
+    color: mat-color($app-theme-foreground, text);
+    font-weight: 300;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  button {
+    width: 100%;
+  }
+}

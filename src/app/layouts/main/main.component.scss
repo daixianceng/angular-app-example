@@ -1,0 +1,72 @@
+@import 'app-theme';
+
+.mat-drawer-container {
+  background-color: if($app-theme-is-dark, mat-color($app-theme-background, background), white);
+  min-height: 100vh;
+
+  .mat-drawer {
+    width: 80vw;
+  }
+}
+
+.mat-toolbar {
+  box-shadow: 0 0 15px $black-87-opacity;
+
+  .sidenav-button {
+    margin-right: 16px;
+  }
+
+  .brand {
+    font-weight: 300;
+  }
+
+  .avatar {
+    border-radius: 50%;
+    height: 34px;
+    margin-right: 10px;
+    width: 34px;
+  }
+}
+
+.mat-card {
+  background: {
+    image: url(if($app-theme-is-dark, '/assets/images/dark-drawer-background.jpg', '/assets/images/light-drawer-background.jpg'));
+    position: center center;
+    repeat: repeat-x;
+  }
+  padding: 16px;
+
+  .mat-card-header {
+    margin-bottom: 16px;
+
+    .mat-card-avatar {
+      height: 50px;
+      width: 50px;
+    }
+  }
+
+  .mat-card-content {
+    a {
+      cursor: pointer;
+
+      .mat-card-title {
+        color: white;
+        font-size: 18px;
+        margin-bottom: 5px;
+      }
+
+      .mat-card-subtitle {
+        color: white;
+        margin-bottom: 0;
+      }
+
+      .mat-icon {
+        color: white;
+      }
+    }
+  }
+}
+
+.container {
+  padding: 16px;
+}

@@ -1,0 +1,14 @@
+@import 'elegant-black';
+@import 'romantic-purple';
+
+// Uncomment if you apply a theme you like
+// $app-theme: $elegant-black-theme;
+$app-theme: $romantic-purple-theme;
+
+// Global variables
+$app-theme-is-dark: map-get($app-theme, is-dark);
+$app-theme-primary: map-get($app-theme, primary);
+$app-theme-accent: map-get($app-theme, accent);
+$app-theme-warn: map-get($app-theme, warn);
+$app-theme-background: map-get($app-theme, background);
+$app-theme-foreground: map-get($app-theme, foreground);

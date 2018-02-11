@@ -5,7 +5,7 @@ import { StyleService } from 'app/services';
 
 @Component({
   templateUrl: './not-found.component.html',
-  styleUrls: ['./not-found.component.css']
+  styleUrls: ['./not-found.component.scss']
 })
 export class NotFoundComponent implements OnDestroy {
 
@@ -13,7 +13,7 @@ export class NotFoundComponent implements OnDestroy {
     private location: Location,
     private styleService: StyleService
   ) {
-    styleService.addStyle('notFoundStyle', require('./style.css'));
+    styleService.addStyle('notFoundStyle', require('./style.scss'));
   }
 
   ngOnDestroy(): void {

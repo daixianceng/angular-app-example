@@ -1,0 +1,21 @@
+@import 'app-theme';
+@import '~@swimlane/ngx-datatable/release/index.css';
+@import '~@swimlane/ngx-datatable/release/assets/icons.css';
+@import '~@swimlane/ngx-datatable/release/themes/material.css';
+
+@include mat-core;
+@include angular-material-theme($app-theme);
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.mat-dialog-container {
+  min-width: 40vw;
+
+  .mat-form-field {
+    width: initial;
+  }
+}

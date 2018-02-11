@@ -1,0 +1,26 @@
+@import 'app-theme';
+
+.container-404 {
+  margin: 50px 15px;
+  padding: 20px 15px;
+
+  h1 {
+    color: mat-color($app-theme-foreground, text);
+    margin-bottom: 20px;
+  }
+
+  p {
+    color: mat-color($app-theme-foreground, secondary-text);
+    line-height: 28px;
+
+    a {
+      color: mat-color($app-theme-primary, darker);
+      cursor: pointer;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
