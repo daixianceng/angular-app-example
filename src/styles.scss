@@ -12,6 +12,14 @@ body {
   padding: 0;
 }
 
+.hidden {
+  display: none;
+}
+
+.mat-list-item.active {
+  background-color: $black-6-opacity;
+}
+
 .mat-dialog-container {
   min-width: 40vw;
 
