@@ -1,0 +1,86 @@
+<form [formGroup]="form" novalidate>
+  <div fxLayout="row" fxLayoutAlign="center">
+    <mat-accordion fxFlex fxFlex.gt-md="60%">
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Avatar
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div fxLayout="row" fxLayout.xs="column">
+          <div fxFlex="120px" fxFlex.xs>
+            <img class="avatar" [src]="avatarSrc || model.avatarURL">
+          </div>
+          <div fxFlex="24px" fxHide.xs></div>
+          <div fxFlex>
+            <input #avatarInput class="hidden" type="file" accept="image/png, image/jpeg" (change)="selectAvatar($event.target.files)">
+            <button mat-raised-button color="primary" (click)="avatarInput.click()">Select a photo</button>
+            <span [matTooltip]="uploaded ? 'Avatar update successful' : avatarFile ? 'Click to update the avatar' : 'No file selected'" matTooltipPosition="right">
+              <button mat-raised-button color="accent" (click)="updateAvatar()" [disabled]="!avatarFile || uploaded">
+                {{uploaded ? 'Updated' : 'Update'}}
+              </button>
+            </span>
+          </div>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title fxFlex="0 1 20em">
+            Username
+          </mat-panel-title>
+          <mat-panel-description>
+            {{model.username}}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div fxLayout="row" fxLayout.xs="column">
+          <div fxFlex>
+            <mat-form-field>
+              <input matInput placeholder="Username" formControlName="username">
+            </mat-form-field>
+            <mat-error>
+              <ng-template [ngIf]="username.hasError('minlength') || username.hasError('maxlength')">
+                Username must be at between 2 and 20 characters long.
+              </ng-template>
+              <ng-template [ngIf]="username.hasError('message')">
+                {{username.getError('message')}}
+              </ng-template>
+            </mat-error>
+          </div>
+          <div fxFlex="24px" fxHide.xs></div>
+          <div fxFlex>
+            <button mat-raised-button color="primary" (click)="updateUsername()" [disabled]="!username.value || username.invalid">Update</button>
+          </div>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title fxFlex="0 1 20em">
+            Email
+          </mat-panel-title>
+          <mat-panel-description>
+            {{model.email}}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div fxLayout="row" fxLayout.xs="column">
+          <div fxFlex>
+            <mat-form-field>
+              <input matInput placeholder="Email" formControlName="email">
+            </mat-form-field>
+            <mat-error>
+              <ng-template [ngIf]="email.hasError('email')">
+                Your email is invalid.
+              </ng-template>
+              <ng-template [ngIf]="email.hasError('message')">
+                {{email.getError('message')}}
+              </ng-template>
+            </mat-error>
+          </div>
+          <div fxFlex="24px" fxHide.xs></div>
+          <div fxFlex>
+            <button mat-raised-button color="primary" (click)="updateEmail()" [disabled]="!email.value || email.invalid">Update</button>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</form>

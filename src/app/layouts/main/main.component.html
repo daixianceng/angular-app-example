@@ -3,7 +3,7 @@
     <div fxLayout="column">
       <mat-card>
         <mat-card-header>
-          <img mat-card-avatar src="//thirdqq.qlogo.cn/g?b=oidb&k=Je6UtrECYicVTfh3GlKkbIQ&s=100" />
+          <img mat-card-avatar [src]="user.avatarURL" />
         </mat-card-header>
         <mat-card-content>
           <a fxLayout="row" (click)="switchNav()">
@@ -21,7 +21,7 @@
       <app-nav *ngIf="primaryNav" (routerClick)="sidenav.close()"></app-nav>
       <mat-nav-list *ngIf="!primaryNav">
         <h3 matSubheader>Account</h3>
-        <a mat-list-item routerLink="/user/profile" routerLinkActive="active" (click)="sidenav.close()">
+        <a mat-list-item routerLink="/profile" routerLinkActive="active" (click)="sidenav.close()">
           <mat-icon>account_circle</mat-icon>
           <span fxFlexOffset="30px">Profile</span>
         </a>
@@ -39,10 +39,10 @@
       </button>
       <span fxFlex="auto" class="brand">{{name}}</span>
       <button mat-button [matMenuTriggerFor]="profileMenu" fxShow="true" fxShow.lt-md="false">
-        <img class="avatar" src="//thirdqq.qlogo.cn/g?b=oidb&k=Je6UtrECYicVTfh3GlKkbIQ&s=100" /> My account
+        <img class="avatar" [src]="user.avatarURL" /> My account
       </button>
       <mat-menu #profileMenu>
-        <a mat-menu-item routerLink="/user/profile" routerLinkActive="active">Profile</a>
+        <a mat-menu-item routerLink="/profile" routerLinkActive="active">Profile</a>
         <button mat-menu-item (click)="logout()">Logout</button>
       </mat-menu>
     </mat-toolbar>

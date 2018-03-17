@@ -71,6 +71,10 @@ export class UserStore {
     return this.userService.put(model);
   }
 
+  updateAvatar(model: User, file: File): Observable<any> {
+    return this.userService.postAvatar(model.id, file);
+  }
+
   delete(model: User): Observable<any> {
     return this.userService.delete(model.id);
   }

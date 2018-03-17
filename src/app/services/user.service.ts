@@ -31,4 +31,10 @@ export class UserService {
   delete(id: number | string): Observable<any> {
     return this.httpClient.delete(`${environment.apiBaseUrl}v1/user/${id}`);
   }
+
+  postAvatar(id: number | string, file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.httpClient.post(`${environment.apiBaseUrl}v1/user/${id}/avatar`, formData);
+  }
 }

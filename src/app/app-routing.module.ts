@@ -7,6 +7,7 @@ import { LoginComponent } from 'app/containers/login/login.component';
 import { NotFoundComponent } from 'app/containers/not-found/not-found.component';
 import { OrderComponent } from 'app/containers/order/order.component';
 import { OverviewComponent } from 'app/containers/overview/overview.component';
+import { ProfileComponent } from 'app/containers/profile/profile.component';
 import { UserComponent } from 'app/containers/user/user.component';
 import { environment } from 'environments/environment';
 
@@ -41,6 +42,13 @@ const routes: Routes = [
         component: OverviewComponent,
         data: {
           title: 'Overview',
+        }
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        data: {
+          title: 'Profile',
         }
       },
       {

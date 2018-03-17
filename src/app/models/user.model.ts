@@ -8,6 +8,8 @@ export const USER_STATUS: Option[] = [
 export class User {
   id: string;
   username: string;
+  avatar: string;
+  avatarURL: string;
   email: string;
   status: number;
   statusLabel: string;

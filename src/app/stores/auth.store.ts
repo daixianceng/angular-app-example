@@ -36,8 +36,7 @@ export class AuthStore {
   login(model: LoginForm): Observable<any> {
     return this.loginService.post(model).do((data: ResponseData) => {
       if (dataIsSuccess(data)) {
-        this.setUserIntoStorage(data.data);
-        this.user.next(data.data);
+        this.replace(data.data);
       }
     });
   }
@@ -45,6 +44,11 @@ export class AuthStore {
   logout(): void {
     this.removeUserFromStorage();
     this.user.next(null);
+  }
+
+  replace(model: User): void {
+    this.setUserIntoStorage(model);
+    this.user.next(model);
   }
 
   rewind(): void {
