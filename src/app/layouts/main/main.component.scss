@@ -1,7 +1,6 @@
 @import 'app-theme';
 
 .mat-drawer-container {
-  background-color: if($app-theme-is-dark, mat-color($app-theme-background, background), white);
   min-height: 100vh;
 
   .mat-drawer {
