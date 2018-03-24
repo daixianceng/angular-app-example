@@ -1,5 +1,5 @@
 export * from './login-form.model';
-export * from './order.model';
+export * from './post.model';
 export * from './option.model';
 export * from './user.model';
 export * from './user-search.model';

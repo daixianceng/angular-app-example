@@ -16,7 +16,7 @@ import {
 import { MainComponent } from './main.component';
 
 import { NavModule, TitleModule } from 'app/components';
-import { OrderModule, OverviewModule, ProfileModule, UserModule } from 'app/containers';
+import { OverviewModule, PostModule, ProfileModule, UserModule } from 'app/containers';
 
 @NgModule({
   declarations: [
@@ -39,8 +39,8 @@ import { OrderModule, OverviewModule, ProfileModule, UserModule } from 'app/cont
     NavModule,
     TitleModule,
     // Containers
-    OrderModule,
     OverviewModule,
+    PostModule,
     ProfileModule,
     UserModule
   ],
