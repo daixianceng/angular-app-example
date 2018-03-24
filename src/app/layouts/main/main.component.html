@@ -46,13 +46,15 @@
         <button mat-menu-item (click)="logout()">Logout</button>
       </mat-menu>
     </mat-toolbar>
-    <div fxLayout="row">
-      <div fxFlex="20%" fxShow="true" fxShow.lt-md="false">
+    <div fxLayout="row" class="container">
+      <div fxFlex="20%" fxShow="true" fxShow.lt-md="false" class="nav">
         <app-nav></app-nav>
       </div>
-      <div fxFlex="80%" fxFlex.lt-md="100%" class="container">
-        <app-title>{{title}}</app-title>
-        <router-outlet outlet="main"></router-outlet>
+      <div fxFlex="80%" fxFlex.lt-md="100%" class="content">
+        <div [@fadeIn]="childComponent">
+          <app-title>{{title}}</app-title>
+          <router-outlet outlet="main"></router-outlet>
+        </div>
       </div>
     </div>
   </mat-sidenav-content>

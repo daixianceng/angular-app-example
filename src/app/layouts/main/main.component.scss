@@ -1,15 +1,20 @@
 @import 'app-theme';
 
 .mat-drawer-container {
-  min-height: 100vh;
 
   .mat-drawer {
     width: 80vw;
+  }
+
+  .mat-drawer-content {
+    min-height: 100vh;
   }
 }
 
 .mat-toolbar {
   box-shadow: 0 0 15px $black-87-opacity;
+  position: relative;
+  z-index: 1000;
 
   .sidenav-button {
     margin-right: 16px;
@@ -67,5 +72,12 @@
 }
 
 .container {
-  padding: 16px;
+
+  .nav {
+    border-right: 1px solid mat-color($app-theme-foreground, divider);
+  }
+
+  .content {
+    padding: 16px;
+  }
 }
