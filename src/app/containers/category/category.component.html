@@ -1,0 +1,22 @@
+<p>
+  <button mat-raised-button color="primary" (click)="createCategory()">Create Category</button>
+  <button mat-raised-button *ngIf="!hasSearch" (click)="search()">Search</button>
+  <button mat-raised-button *ngIf="hasSearch" color="accent" (click)="search()">Searched</button>
+</p>
+<ngx-datatable class="material" [rows]="rows" [loadingIndicator]="loading" columnMode="force" [headerHeight]="50" [footerHeight]="50"
+  [rowHeight]="64" [reorderable]="false" [externalPaging]="true" [externalSorting]="true" [scrollbarH]="true" [scrollbarV]="false"
+  [count]="page.count" [offset]="page.offset" [limit]="page.limit" [sorts]="sorts" (page)="setPage($event)" (sort)="setSorts($event.sorts)">
+  <ngx-datatable-column name="ID" prop="id"></ngx-datatable-column>
+  <ngx-datatable-column name="Name" prop="name"></ngx-datatable-column>
+  <ngx-datatable-column name="Key" prop="key"></ngx-datatable-column>
+  <ngx-datatable-column name="Operation" [sortable]="false">
+    <ng-template let-model="row" ngx-datatable-cell-template>
+      <button mat-raised-button color="primary" [matMenuTriggerFor]="itemMenu" (click)="openMenu(model)">Action</button>
+    </ng-template>
+  </ngx-datatable-column>
+</ngx-datatable>
+<mat-menu #itemMenu="matMenu">
+  <button mat-menu-item (click)="viewCategory(currModel)">View</button>
+  <button mat-menu-item (click)="updateCategory(currModel)">Update</button>
+  <button mat-menu-item (click)="deleteCategory(currModel)">Delete</button>
+</mat-menu>

@@ -5,13 +5,14 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import {
   AuthGuard,
+  CategoryService,
   LoginService,
   StyleService,
   UserService,
   AuthInterceptor,
   ErrorResponseInterceptor
 } from './services';
-import { AuthStore, UserStore } from './stores';
+import { AuthStore, CategoryStore, UserStore } from './stores';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -35,10 +36,12 @@ import { LoginModule, NotFoundModule } from './containers';
   ],
   providers: [
     AuthGuard,
+    CategoryService,
     LoginService,
     StyleService,
     UserService,
     AuthStore,
+    CategoryStore,
     UserStore,
     {
       provide: LOGIN_URL,

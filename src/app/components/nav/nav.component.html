@@ -4,8 +4,12 @@
     <mat-icon>view_carousel</mat-icon>
     <span fxFlexOffset="30px">Overview</span>
   </a>
+  <a mat-list-item routerLink="/category" routerLinkActive="active" (click)="onRouterClick()">
+    <mat-icon>view_module</mat-icon>
+    <span fxFlexOffset="30px">Categories</span>
+  </a>
   <a mat-list-item routerLink="/post" routerLinkActive="active" (click)="onRouterClick()">
-    <mat-icon>view_list</mat-icon>
+    <mat-icon>subject</mat-icon>
     <span fxFlexOffset="30px">Posts</span>
   </a>
   <mat-divider></mat-divider>

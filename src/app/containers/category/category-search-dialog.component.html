@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>Category Search</h2>
+<form [formGroup]="form" (ngSubmit)="submit($event)" novalidate>
+  <mat-dialog-content>
+    <div fxLayout="column">
+      <mat-form-field fxFlex>
+        <input matInput placeholder="Name" formControlName="name">
+      </mat-form-field>
+      <mat-form-field fxFlex>
+        <input matInput placeholder="Key" formControlName="key">
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions fxLayout="row-reverse">
+    <div>
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-button type="submit" [disabled]="form.invalid">Search</button>
+    </div>
+  </mat-dialog-actions>
+</form>

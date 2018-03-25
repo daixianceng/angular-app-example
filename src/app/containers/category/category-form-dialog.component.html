@@ -1,0 +1,41 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<form [formGroup]="form" (ngSubmit)="submit($event)" novalidate>
+  <mat-dialog-content>
+    <div fxLayout="column">
+      <mat-form-field fxFlex>
+        <input matInput placeholder="Name" formControlName="name" [readonly]="readOnly">
+        <mat-error>
+          <ng-template [ngIf]="name.hasError('required')">
+            Name is required.
+          </ng-template>
+          <ng-template [ngIf]="name.hasError('maxlength')">
+            Name must be within 255 characters long.
+          </ng-template>
+          <ng-template [ngIf]="name.hasError('message')">
+            {{name.getError('message')}}
+          </ng-template>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex>
+        <input matInput placeholder="Key" formControlName="key" [readonly]="readOnly">
+        <mat-error>
+          <ng-template [ngIf]="key.hasError('required')">
+            key is required.
+          </ng-template>
+          <ng-template [ngIf]="key.hasError('maxlength')">
+            Key must be within 255 characters long.
+          </ng-template>
+          <ng-template [ngIf]="key.hasError('message')">
+            {{key.getError('message')}}
+          </ng-template>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions fxLayout="row-reverse">
+    <div>
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-button type="submit" [disabled]="readOnly || form.invalid">Submit</button>
+    </div>
+  </mat-dialog-actions>
+</form>
