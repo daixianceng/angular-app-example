@@ -16,6 +16,7 @@ export class CategoryStore {
   readonly page: BehaviorSubject<DatatablePage>;
   readonly sorts: BehaviorSubject<SortPropDir[]> = new BehaviorSubject([]);
   readonly search: BehaviorSubject<CategorySearch> = new BehaviorSubject(new CategorySearch());
+  readonly all: BehaviorSubject<Category[]> = new BehaviorSubject([]);
 
   constructor(
     private categoryService: CategoryService,
@@ -26,6 +27,20 @@ export class CategoryStore {
     page.limit = page.pageSize;
     page.offset = 0;
     this.page = new BehaviorSubject(page);
+  }
+
+  fetchAll(): Subscription {
+    const params = (new HttpParams()).set(
+      'per-page',
+      String(Number.MAX_SAFE_INTEGER)
+    );
+    return this.categoryService.getAll(params).subscribe((res: any) => {
+      this.all.next(res.data.items as Category[]);
+    });
+  }
+
+  findById(id: string): Category | undefined {
+    return this.all.value.find((item: Category) => item.id === id);
   }
 
   fetchData(params: HttpParams = this.buildHttpParams()): Subscription {

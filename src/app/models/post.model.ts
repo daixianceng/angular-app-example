@@ -1,3 +1,10 @@
+import { Option } from './option.model';
+
+export const POST_STATUS: Option[] = [
+  { value: 1, label: 'Enabled' },
+  { value: 0, label: 'Disabled' }
+];
+
 export class Post {
   id: string;
   categoryId: string;

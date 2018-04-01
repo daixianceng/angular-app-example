@@ -7,12 +7,13 @@ import {
   AuthGuard,
   CategoryService,
   LoginService,
+  PostService,
   StyleService,
   UserService,
   AuthInterceptor,
   ErrorResponseInterceptor
 } from './services';
-import { AuthStore, CategoryStore, UserStore } from './stores';
+import { AuthStore, CategoryStore, PostStore, UserStore } from './stores';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -38,10 +39,12 @@ import { LoginModule, NotFoundModule } from './containers';
     AuthGuard,
     CategoryService,
     LoginService,
+    PostService,
     StyleService,
     UserService,
     AuthStore,
     CategoryStore,
+    PostStore,
     UserStore,
     {
       provide: LOGIN_URL,

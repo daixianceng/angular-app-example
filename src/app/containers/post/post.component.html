@@ -1,0 +1,45 @@
+<p>
+  <a mat-raised-button color="primary" routerLink="/post/writing">
+    <mat-icon>create</mat-icon>
+    Writing
+  </a>
+  <button mat-raised-button *ngIf="!hasSearch" (click)="search()">Search</button>
+  <button mat-raised-button *ngIf="hasSearch" color="accent" (click)="search()">Searched</button>
+</p>
+<ngx-datatable class="material" [rows]="rows" [loadingIndicator]="loading" columnMode="force" [headerHeight]="50" [footerHeight]="50"
+  [rowHeight]="64" [reorderable]="false" [externalPaging]="true" [externalSorting]="true" [scrollbarH]="true" [scrollbarV]="false"
+  [count]="page.count" [offset]="page.offset" [limit]="page.limit" [sorts]="sorts" (page)="setPage($event)" (sort)="setSorts($event.sorts)">
+  <ngx-datatable-column name="ID" prop="id"></ngx-datatable-column>
+  <ngx-datatable-column name="Title" prop="title"></ngx-datatable-column>
+  <ngx-datatable-column name="Category" prop="categoryId">
+    <ng-template let-model="row" ngx-datatable-cell-template>
+      {{getCategoryLabel(model.categoryId)}}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Tags" prop="tags">
+    <ng-template let-model="row" ngx-datatable-cell-template>
+      <mat-chip-list>
+        <mat-chip *ngFor="let item of model.tagCollection">{{item}}</mat-chip>
+      </mat-chip-list>
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Status" prop="status">
+    <ng-template let-model="row" ngx-datatable-cell-template>
+      {{model.statusLabel}}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Create Time" prop="createdAt">
+    <ng-template let-model="row" ngx-datatable-cell-template>
+      {{model.createdAt + '000' | date:'short'}}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Operation" [sortable]="false">
+    <ng-template let-model="row" ngx-datatable-cell-template>
+      <button mat-raised-button color="primary" [matMenuTriggerFor]="itemMenu" (click)="openMenu(model)">Action</button>
+    </ng-template>
+  </ngx-datatable-column>
+</ngx-datatable>
+<mat-menu #itemMenu="matMenu">
+  <a mat-menu-item *ngIf="currModel" [routerLink]="'/post/writing/' + currModel.id">Update</a>
+  <button mat-menu-item (click)="deletePost(currModel)">Delete</button>
+</mat-menu>
