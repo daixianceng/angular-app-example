@@ -8,7 +8,7 @@
       <mat-form-field fxFlex>
         <mat-select placeholder="Category" formControlName="categoryId">
           <mat-option [value]="null">None</mat-option>
-          <mat-option *ngFor="let item of categories" [value]="item.id">{{item.name}}</mat-option>
+          <mat-option *ngFor="let item of categories | async" [value]="item.id">{{item.name}}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field fxFlex>

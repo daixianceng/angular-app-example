@@ -1,6 +1,7 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnDestroy } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute, Data } from '@angular/router';
 import { trigger, style, animate, transition } from '@angular/animations';
+import { Subscription } from 'rxjs/Rx';
 
 import { LOGIN_URL } from 'app/common';
 import { User } from 'app/models';
@@ -20,7 +21,7 @@ import { environment } from 'environments/environment';
     ])
   ]
 })
-export class MainComponent {
+export class MainComponent implements OnDestroy {
 
   name = environment.appName;
   title: string;
@@ -28,15 +29,18 @@ export class MainComponent {
   user: User;
   childComponent: any;
 
+  titleSubscription: Subscription;
+  userSubscription: Subscription;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private authStore: AuthStore,
     @Inject(LOGIN_URL) private loginUrl: string
   ) {
-    router.events
+    this.titleSubscription = router.events
       .filter((event) => event instanceof NavigationEnd)
-      .map(() => this.route.firstChild)
+      .map(() => route.firstChild)
       .filter((childRoute) => childRoute !== null)
       .do((childRoute) => {
         this.childComponent = childRoute.component;
@@ -45,11 +49,16 @@ export class MainComponent {
       .subscribe((data: Data) => {
         this.title = data.title;
       });
-    this.authStore.user
+    this.userSubscription = authStore.user
       .filter((model) => model !== null)
       .subscribe((model: User) => {
         this.user = model;
       });
+  }
+
+  ngOnDestroy(): void {
+    this.titleSubscription.unsubscribe();
+    this.userSubscription.unsubscribe();
   }
 
   switchNav(): void {

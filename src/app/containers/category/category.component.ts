@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { SortPropDir } from '@swimlane/ngx-datatable';
+import { Subscription } from 'rxjs/Rx';
 
 import { objectIsEmpty, SCENARIO_CREATE, SCENARIO_UPDATE } from 'app/common';
 import { CategoryStore } from 'app/stores';
@@ -12,7 +13,7 @@ import { CategoryDeletionDialogComponent } from './category-deletion-dialog.comp
 @Component({
   templateUrl: './category.component.html'
 })
-export class CategoryComponent implements OnInit {
+export class CategoryComponent implements OnInit, OnDestroy {
 
   loading: boolean;
   rows: Category[];
@@ -21,29 +22,44 @@ export class CategoryComponent implements OnInit {
   searchModel: CategorySearch;
   currModel: Category | undefined = undefined;
 
+  loadingSubscription: Subscription;
+  rowsSubscription: Subscription;
+  pageSubscription: Subscription;
+  sortsSubscription: Subscription;
+  searchModelSubscription: Subscription;
+
   constructor(
     private categoryStore: CategoryStore,
     private dialog: MatDialog
   ) {
-    categoryStore.loading.subscribe((value) => {
+    this.loadingSubscription = categoryStore.loading.subscribe((value) => {
       this.loading = value;
     });
-    categoryStore.items.subscribe((value) => {
+    this.rowsSubscription = categoryStore.items.subscribe((value) => {
       this.rows = value;
     });
-    categoryStore.page.subscribe((value) => {
+    this.pageSubscription = categoryStore.page.subscribe((value) => {
       this.page = value;
     });
-    categoryStore.sorts.subscribe((value) => {
+    this.sortsSubscription = categoryStore.sorts.subscribe((value) => {
       this.sorts = value;
     });
-    categoryStore.search.subscribe((value) => {
+    this.searchModelSubscription = categoryStore.search.subscribe((value) => {
       this.searchModel = value;
     });
   }
 
   ngOnInit(): void {
     this.categoryStore.fetchData();
+  }
+
+  ngOnDestroy(): void {
+    this.loadingSubscription
+      .add(this.rowsSubscription)
+      .add(this.pageSubscription)
+      .add(this.sortsSubscription)
+      .add(this.searchModelSubscription)
+      .unsubscribe();
   }
 
   get hasSearch(): boolean {

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { SortPropDir } from '@swimlane/ngx-datatable';
+import { Subscription } from 'rxjs/Rx';
 
 import { objectIsEmpty, SCENARIO_CREATE, SCENARIO_UPDATE } from 'app/common';
 import { UserStore } from 'app/stores';
@@ -12,7 +13,7 @@ import { UserDeletionDialogComponent } from './user-deletion-dialog.component';
 @Component({
   templateUrl: './user.component.html'
 })
-export class UserComponent implements OnInit {
+export class UserComponent implements OnInit, OnDestroy {
 
   loading: boolean;
   rows: User[];
@@ -21,29 +22,44 @@ export class UserComponent implements OnInit {
   searchModel: UserSearch;
   currModel: User | null = null;
 
+  loadingSubscription: Subscription;
+  rowsSubscription: Subscription;
+  pageSubscription: Subscription;
+  sortsSubscription: Subscription;
+  searchModelSubscription: Subscription;
+
   constructor(
     private userStore: UserStore,
     private dialog: MatDialog
   ) {
-    userStore.loading.subscribe((value) => {
+    this.loadingSubscription = userStore.loading.subscribe((value) => {
       this.loading = value;
     });
-    userStore.items.subscribe((value) => {
+    this.rowsSubscription = userStore.items.subscribe((value) => {
       this.rows = value;
     });
-    userStore.page.subscribe((value) => {
+    this.pageSubscription = userStore.page.subscribe((value) => {
       this.page = value;
     });
-    userStore.sorts.subscribe((value) => {
+    this.sortsSubscription = userStore.sorts.subscribe((value) => {
       this.sorts = value;
     });
-    userStore.search.subscribe((value) => {
+    this.searchModelSubscription = userStore.search.subscribe((value) => {
       this.searchModel = value;
     });
   }
 
   ngOnInit(): void {
     this.userStore.fetchData();
+  }
+
+  ngOnDestroy(): void {
+    this.loadingSubscription
+      .add(this.rowsSubscription)
+      .add(this.pageSubscription)
+      .add(this.sortsSubscription)
+      .add(this.searchModelSubscription)
+      .unsubscribe();
   }
 
   get hasSearch(): boolean {

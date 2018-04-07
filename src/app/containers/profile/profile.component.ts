@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, AbstractControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
+import { Subscription } from 'rxjs/Rx';
 
 import { dataIsSuccess } from 'app/common';
 import { AuthStore, UserStore } from 'app/stores';
@@ -11,7 +12,7 @@ import { User, ResponseData, ErrorMessage } from 'app/models';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
   model: User;
@@ -19,13 +20,15 @@ export class ProfileComponent implements OnInit {
   avatarFile: File | undefined;
   uploaded = false;
 
+  modelSubscription: Subscription;
+
   constructor(
     private formBuilder: FormBuilder,
     private snackBar: MatSnackBar,
     private authStore: AuthStore,
     private userStore: UserStore
   ) {
-    authStore.user.subscribe((item: User) => {
+    this.modelSubscription = authStore.user.subscribe((item: User) => {
       this.model = item;
     });
   }
@@ -54,6 +57,10 @@ export class ProfileComponent implements OnInit {
         ]
       ]
     });
+  }
+
+  ngOnDestroy(): void {
+    this.modelSubscription.unsubscribe();
   }
 
   get username(): AbstractControl {

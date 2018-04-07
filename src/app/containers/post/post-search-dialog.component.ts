@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ObservableMedia } from '@angular/flex-layout';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import * as moment from 'moment';
+import { BehaviorSubject } from 'rxjs/Rx';
 
 import { splitTimeRange, concatTimesFormatByISOString, TIME_RANGE_SEPARATOR } from 'app/common';
 import { CategoryStore } from 'app/stores';
@@ -19,7 +20,7 @@ export class PostSearchDialogComponent implements OnInit {
   model: PostSearch;
   statusOptions = POST_STATUS;
   callback: Function | undefined;
-  categories: Category[];
+  categories: BehaviorSubject<Category[]>;
 
   constructor(
     private categoryStore: CategoryStore,
@@ -28,9 +29,7 @@ export class PostSearchDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) data: any,
     @Inject(TIME_RANGE_SEPARATOR) private timeRangeSeparator: string
   ) {
-    categoryStore.all.subscribe((value) => {
-      this.categories = value;
-    });
+    this.categories = categoryStore.all;
     this.model = data.model;
     this.callback = data.callback;
   }

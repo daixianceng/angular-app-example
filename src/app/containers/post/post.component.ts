@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { SortPropDir } from '@swimlane/ngx-datatable';
+import { Subscription } from 'rxjs/Rx';
 
 import { objectIsEmpty } from 'app/common';
 import { CategoryStore, PostStore } from 'app/stores';
@@ -11,7 +12,7 @@ import { PostDeletionDialogComponent } from './post-deletion-dialog.component';
 @Component({
   templateUrl: './post.component.html'
 })
-export class PostComponent implements OnInit {
+export class PostComponent implements OnInit, OnDestroy {
 
   loading: boolean;
   rows: Post[];
@@ -20,24 +21,30 @@ export class PostComponent implements OnInit {
   searchModel: PostSearch;
   currModel: Post | undefined = undefined;
 
+  loadingSubscription: Subscription;
+  rowsSubscription: Subscription;
+  pageSubscription: Subscription;
+  sortsSubscription: Subscription;
+  searchModelSubscription: Subscription;
+
   constructor(
     private categoryStore: CategoryStore,
     private postStore: PostStore,
     private dialog: MatDialog
   ) {
-    postStore.loading.subscribe((value) => {
+    this.loadingSubscription = postStore.loading.subscribe((value) => {
       this.loading = value;
     });
-    postStore.items.subscribe((value) => {
+    this.rowsSubscription = postStore.items.subscribe((value) => {
       this.rows = value;
     });
-    postStore.page.subscribe((value) => {
+    this.pageSubscription = postStore.page.subscribe((value) => {
       this.page = value;
     });
-    postStore.sorts.subscribe((value) => {
+    this.sortsSubscription = postStore.sorts.subscribe((value) => {
       this.sorts = value;
     });
-    postStore.search.subscribe((value) => {
+    this.searchModelSubscription = postStore.search.subscribe((value) => {
       this.searchModel = value;
     });
   }
@@ -45,6 +52,15 @@ export class PostComponent implements OnInit {
   ngOnInit(): void {
     this.categoryStore.fetchAll();
     this.postStore.fetchData();
+  }
+
+  ngOnDestroy(): void {
+    this.loadingSubscription
+      .add(this.rowsSubscription)
+      .add(this.pageSubscription)
+      .add(this.sortsSubscription)
+      .add(this.searchModelSubscription)
+      .unsubscribe();
   }
 
   get hasSearch(): boolean {
