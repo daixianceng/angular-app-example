@@ -3,10 +3,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, AbstractControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material';
 
-import { dataIsSuccess } from 'app/common';
+import { dataIsSuccess, SCENARIO_DEFAULT, SCENARIO_CREATE } from 'app/common';
 import { UserStore } from 'app/stores';
 import { User, USER_STATUS, ErrorMessage, ResponseData } from 'app/models';
-import { SCENARIO_DEFAULT, SCENARIO_CREATE } from 'app/common';
 
 @Component({
   selector: 'app-user-form-dialog',
