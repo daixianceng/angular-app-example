@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable, Subscription } from 'rxjs/Rx';
 import { toPairs } from 'lodash';
 
 import { convertSortToString, convertPaginationToDatatablePage } from 'app/common';
-import { Post, PostSearch, Pagination, DatatablePage } from 'app/models';
+import { Post, PostTags, PostSearch, Pagination, DatatablePage } from 'app/models';
 import { PostService } from 'app/services/post.service';
 
 @Injectable()
@@ -16,6 +16,7 @@ export class PostStore {
   readonly page: BehaviorSubject<DatatablePage>;
   readonly sorts: BehaviorSubject<SortPropDir[]> = new BehaviorSubject([]);
   readonly search: BehaviorSubject<PostSearch> = new BehaviorSubject(new PostSearch());
+  readonly tags: BehaviorSubject<PostTags> = new BehaviorSubject([]);
 
   constructor(
     private postService: PostService,
@@ -35,6 +36,12 @@ export class PostStore {
     }).subscribe((res: any) => {
       this.items.next(res.data.items as Post[]);
       this.page.next(convertPaginationToDatatablePage(res.data._meta as Pagination));
+    });
+  }
+
+  fetchTags(): Subscription {
+    return this.postService.getTags().subscribe((res: any) => {
+      this.tags.next(res.data as PostTags);
     });
   }
 

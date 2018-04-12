@@ -5,13 +5,15 @@ export const POST_STATUS: Option[] = [
   { value: 0, label: 'Disabled' }
 ];
 
+export type PostTags = string[];
+
 export class Post {
   id: string;
   categoryId: string;
   title: string;
   key: string;
   tags: string;
-  tagCollection: string[];
+  tagCollection: PostTags;
   intro: string;
   content: string;
   authorId: string;

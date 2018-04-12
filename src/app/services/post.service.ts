@@ -16,6 +16,10 @@ export class PostService {
     return this.httpClient.get(`${environment.apiBaseUrl}v1/posts`, { params });
   }
 
+  getTags(): Observable<any> {
+    return this.httpClient.get(`${environment.apiBaseUrl}v1/post-tags`);
+  }
+
   get(id: number | string): Observable<any> {
     return this.httpClient.get(`${environment.apiBaseUrl}v1/post/${id}`);
   }
