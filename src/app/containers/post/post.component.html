@@ -40,6 +40,6 @@
   </ngx-datatable-column>
 </ngx-datatable>
 <mat-menu #itemMenu="matMenu">
-  <a mat-menu-item *ngIf="currModel" [routerLink]="'/post/writing/' + currModel.id">Update</a>
+  <a mat-menu-item *ngIf="currModel" [routerLink]="['/post/writing', currModel.id]">Update</a>
   <button mat-menu-item (click)="deletePost(currModel)">Delete</button>
 </mat-menu>
