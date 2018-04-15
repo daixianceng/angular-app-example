@@ -1,0 +1,24 @@
+<h2 mat-dialog-title>Add Tag</h2>
+<form [formGroup]="form" (ngSubmit)="submit($event)" novalidate>
+  <mat-dialog-content>
+    <div fxLayout="column">
+      <mat-form-field fxFlex>
+        <input matInput placeholder="Tag Name" formControlName="name">
+        <mat-error>
+          <ng-template [ngIf]="name.hasError('required')">
+            Tag name is required.
+          </ng-template>
+          <ng-template [ngIf]="name.hasError('maxlength')">
+            Tag name must be within 10 characters long.
+          </ng-template>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions fxLayout="row-reverse">
+    <div>
+      <button mat-button mat-dialog-close>No</button>
+      <button mat-button type="submit" [disabled]="form.invalid">Yes</button>
+    </div>
+  </mat-dialog-actions>
+</form>

@@ -16,8 +16,11 @@ import {
 } from '@angular/material';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 import { PostComponent } from './post.component';
+import { PostWritingComponent } from './post-writing.component';
+import { PostWritingTagDialogComponent } from './post-writing-tag-dialog.component';
 import { PostDeletionDialogComponent } from './post-deletion-dialog.component';
 import { PostSearchDialogComponent } from './post-search-dialog.component';
 
@@ -27,6 +30,8 @@ import { PostSearchDialogComponent } from './post-search-dialog.component';
     CommonModule,
     FlexLayoutModule,
     FormsModule,
+    FroalaEditorModule.forRoot(),
+    FroalaViewModule.forRoot(),
     ReactiveFormsModule,
     RouterModule,
     NgxDatatableModule,
@@ -43,10 +48,13 @@ import { PostSearchDialogComponent } from './post-search-dialog.component';
   ],
   declarations: [
     PostComponent,
+    PostWritingComponent,
+    PostWritingTagDialogComponent,
     PostDeletionDialogComponent,
     PostSearchDialogComponent
   ],
   entryComponents: [
+    PostWritingTagDialogComponent,
     PostDeletionDialogComponent,
     PostSearchDialogComponent
   ],

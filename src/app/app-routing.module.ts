@@ -8,6 +8,7 @@ import { LoginComponent } from 'app/containers/login/login.component';
 import { NotFoundComponent } from 'app/containers/not-found/not-found.component';
 import { OverviewComponent } from 'app/containers/overview/overview.component';
 import { PostComponent } from 'app/containers/post/post.component';
+import { PostWritingComponent } from 'app/containers/post/post-writing.component';
 import { ProfileComponent } from 'app/containers/profile/profile.component';
 import { UserComponent } from 'app/containers/user/user.component';
 import { environment } from 'environments/environment';
@@ -50,6 +51,20 @@ const routes: Routes = [
         component: PostComponent,
         data: {
           title: 'Posts',
+        }
+      },
+      {
+        path: 'post/writing',
+        component: PostWritingComponent,
+        data: {
+          title: 'Create Post',
+        }
+      },
+      {
+        path: 'post/writing/:id',
+        component: PostWritingComponent,
+        data: {
+          title: 'Update Post',
         }
       },
       {

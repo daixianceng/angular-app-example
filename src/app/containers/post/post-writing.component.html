@@ -1,0 +1,109 @@
+<div fxLayout="row" fxLayoutAlign="center">
+  <div fxFlex fxFlex.gt-md="60%">
+    <form [formGroup]="form" (ngSubmit)="submit($event)" fxLayout="column" novalidate>
+      <mat-form-field fxFlex>
+        <input matInput placeholder="Title" formControlName="title">
+        <mat-error>
+          <ng-template [ngIf]="title.hasError('required')">
+            Title is required.
+          </ng-template>
+          <ng-template [ngIf]="title.hasError('maxlength')">
+            Title must be within 255 characters long.
+          </ng-template>
+          <ng-template [ngIf]="title.hasError('message')">
+            {{title.getError('message')}}
+          </ng-template>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex>
+        <input matInput placeholder="Key" formControlName="key">
+        <mat-error>
+          <ng-template [ngIf]="key.hasError('required')">
+            Key is required.
+          </ng-template>
+          <ng-template [ngIf]="key.hasError('maxlength')">
+            Key must be within 255 characters long.
+          </ng-template>
+          <ng-template [ngIf]="key.hasError('message')">
+            {{key.getError('message')}}
+          </ng-template>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex>
+        <mat-select placeholder="Category" formControlName="categoryId">
+          <mat-option *ngFor="let item of categories | async" [value]="item.id">{{item.name}}</mat-option>
+        </mat-select>
+        <mat-error>
+          <ng-template [ngIf]="categoryId.hasError('required')">
+            Category is required.
+          </ng-template>
+          <ng-template [ngIf]="categoryId.hasError('message')">
+            {{categoryId.getError('message')}}
+          </ng-template>
+        </mat-error>
+      </mat-form-field>
+      <div fxLayout="row" fxLayout.xs="column">
+        <mat-form-field fxFlex>
+          <mat-select placeholder="Tags" formControlName="tagCollection" multiple>
+            <mat-option *ngFor="let item of tagsUniq" [value]="item">{{item}}</mat-option>
+          </mat-select>
+          <mat-error>
+            <ng-template [ngIf]="tagCollection.hasError('required')">
+              Tag is required.
+            </ng-template>
+            <ng-template [ngIf]="tagCollection.hasError('message')">
+              {{tagCollection.getError('message')}}
+            </ng-template>
+          </mat-error>
+        </mat-form-field>
+        <div fxFlex="24px" fxHide.xs></div>
+        <div fxFlex fxFlexAlign="center" fxFlexAlign.xs="left">
+          <button mat-raised-button type="button" color="accent" (click)="createTag()">New Tag</button>
+        </div>
+      </div>
+      <mat-form-field fxFlex>
+        <mat-select placeholder="Status" formControlName="status">
+          <mat-option *ngFor="let item of statusOptions" [value]="item.value">{{item.label}}</mat-option>
+        </mat-select>
+        <mat-error>
+          <ng-template [ngIf]="status.hasError('required')">
+            Status is required.
+          </ng-template>
+          <ng-template [ngIf]="status.hasError('message')">
+            {{status.getError('message')}}
+          </ng-template>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex>
+        <textarea matInput placeholder="Introduction" formControlName="intro" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="4"></textarea>
+        <mat-error>
+          <ng-template [ngIf]="intro.hasError('required')">
+            Introduction is required.
+          </ng-template>
+          <ng-template [ngIf]="intro.hasError('minlength') || intro.hasError('maxlength')">
+            Introduction must be at between 10 and 140 characters long.
+          </ng-template>
+          <ng-template [ngIf]="intro.hasError('message')">
+            {{intro.getError('message')}}
+          </ng-template>
+        </mat-error>
+      </mat-form-field>
+      <div fxFlex>
+        <textarea [froalaEditor]="editorOptions" formControlName="content"></textarea>
+        <div class="error-wrapper">
+          <mat-error *ngIf="content.invalid && (content.dirty || content.touched)">
+            <ng-template [ngIf]="content.hasError('required')">
+              Content is required.
+            </ng-template>
+            <ng-template [ngIf]="content.hasError('message')">
+              {{content.getError('message')}}
+            </ng-template>
+          </mat-error>
+        </div>
+      </div>
+      <div fxLayout="row-reverse">
+        <button mat-raised-button type="submit" color="primary" [disabled]="form.invalid">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
