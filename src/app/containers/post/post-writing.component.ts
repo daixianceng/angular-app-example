@@ -170,7 +170,7 @@ export class PostWritingComponent implements OnInit {
       }
     })().subscribe((data: ResponseData) => {
       if (dataIsSuccess(data)) {
-        this.router.navigate(['post']);
+        this.router.navigate(['posts']);
       }
     }, (errorResp: HttpErrorResponse) => {
       if (errorResp.status === 422) {

@@ -33,10 +33,10 @@ const routes: Routes = [
     // canActivateChild: [AuthGuard],
     children: [
       {
-        path: 'category',
+        path: 'categories',
         component: CategoryComponent,
         data: {
-          title: 'Category',
+          title: 'Categories',
         }
       },
       {
@@ -47,7 +47,7 @@ const routes: Routes = [
         }
       },
       {
-        path: 'post',
+        path: 'posts',
         component: PostComponent,
         data: {
           title: 'Posts',
@@ -75,7 +75,7 @@ const routes: Routes = [
         }
       },
       {
-        path: 'user',
+        path: 'users',
         component: UserComponent,
         data: {
           title: 'Users',
