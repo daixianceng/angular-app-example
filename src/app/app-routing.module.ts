@@ -84,6 +84,13 @@ const routes: Routes = [
     ]
   },
   {
+    path: 'not-found',
+    component: NotFoundComponent,
+    data: {
+      title: 'Page not found (404)'
+    }
+  },
+  {
     path: '**',
     component: NotFoundComponent,
     data: {

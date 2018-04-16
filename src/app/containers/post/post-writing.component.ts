@@ -114,6 +114,10 @@ export class PostWritingComponent implements OnInit {
       .switchMap((id: string) => this.postService.get(id))
       .subscribe((res: any) => {
         this.setModel(res.data as Post);
+      }, (errorResp: HttpErrorResponse) => {
+        if (errorResp.status === 404) {
+          this.router.navigate(['not-found']);
+        }
       });
   }
 
