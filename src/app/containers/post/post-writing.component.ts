@@ -6,7 +6,7 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import { BehaviorSubject } from 'rxjs/Rx';
 import { uniq } from 'lodash';
 
-import { dataIsSuccess, SCENARIO_CREATE, SCENARIO_UPDATE } from 'app/common';
+import { CanComponentDeactivate, dataIsSuccess, SCENARIO_CREATE, SCENARIO_UPDATE } from 'app/common';
 import { PostService } from 'app/services';
 import { CategoryStore, PostStore } from 'app/stores';
 import { Category, Post, PostTags, POST_STATUS, ErrorMessage, ResponseData } from 'app/models';
@@ -15,7 +15,7 @@ import { PostWritingTagDialogComponent } from './post-writing-tag-dialog.compone
 @Component({
   templateUrl: './post-writing.component.html'
 })
-export class PostWritingComponent implements OnInit {
+export class PostWritingComponent implements OnInit, CanComponentDeactivate {
 
   scenario: string;
   form: FormGroup;
@@ -119,6 +119,10 @@ export class PostWritingComponent implements OnInit {
           this.router.navigate(['not-found']);
         }
       });
+  }
+
+  canDeactivate(): boolean {
+    return this.form.dirty ? confirm('Leave the current page?') : true;
   }
 
   get title(): AbstractControl {

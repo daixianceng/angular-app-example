@@ -6,6 +6,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {
   AuthGuard,
   CategoryService,
+  DeactivateGuard,
   LoginService,
   PostService,
   StyleService,
@@ -38,6 +39,7 @@ import { LoginModule, NotFoundModule } from './containers';
   providers: [
     AuthGuard,
     CategoryService,
+    DeactivateGuard,
     LoginService,
     PostService,
     StyleService,

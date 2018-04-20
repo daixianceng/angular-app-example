@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AuthGuard } from 'app/services';
+import { AuthGuard, DeactivateGuard } from 'app/services';
 import { MainComponent } from 'app/layouts/main/main.component';
 import { CategoryComponent } from 'app/containers/category/category.component';
 import { LoginComponent } from 'app/containers/login/login.component';
@@ -56,6 +56,7 @@ const routes: Routes = [
       {
         path: 'post/writing',
         component: PostWritingComponent,
+        canDeactivate: [DeactivateGuard],
         data: {
           title: 'Create Post',
         }
@@ -63,6 +64,7 @@ const routes: Routes = [
       {
         path: 'post/writing/:id',
         component: PostWritingComponent,
+        canDeactivate: [DeactivateGuard],
         data: {
           title: 'Update Post',
         }
