@@ -2,6 +2,7 @@ export * from './category-search.model';
 export * from './category.model';
 export * from './datatable-page.model';
 export * from './error-message.model';
+export * from './item.model';
 export * from './login-form.model';
 export * from './option.model';
 export * from './pagination.model';

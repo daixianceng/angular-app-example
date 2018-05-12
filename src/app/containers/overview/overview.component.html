@@ -1,6 +1,16 @@
-<div [ngStyle]="{height: 400 + 'px'}">
-  <ngx-charts-bar-vertical [scheme]="colorScheme" [results]="single" [gradient]="gradient" [xAxis]="showXAxis"
-    [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
-    [yAxisLabel]="yAxisLabel" [barPadding]="50">
-  </ngx-charts-bar-vertical>
+<div class="chart">
+  <mat-spinner *ngIf="dailyPostsLoading"></mat-spinner>
+  <ngx-charts-line-chart
+    *ngIf="!dailyPostsLoading"
+    [autoScale]="true"
+    [gradient]="true"
+    [legend]="false"
+    [results]="dailyPostsResults"
+    [roundDomains]="true"
+    [showXAxisLabel]="true"
+    [showYAxisLabel]="true"
+    [xAxis]="true"
+    [yAxis]="true"
+    yAxisLabel="Number of Posts">
+  </ngx-charts-line-chart>
 </div>

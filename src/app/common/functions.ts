@@ -1,7 +1,7 @@
 import { SortPropDir } from '@swimlane/ngx-datatable';
 import { Moment } from 'moment';
 
-import { Pagination, DatatablePage, ResponseData } from 'app/models';
+import { Pagination, DatatablePage, ResponseData, Item, Items } from 'app/models';
 import { DATA_STATUS_SUCCESS } from './constants';
 
 export function dataIsSuccess(data: ResponseData): boolean {
@@ -32,6 +32,17 @@ export function convertPaginationToDatatablePage(pagination: Pagination): Datata
   page.offset = pagination.currentPage - 1;
 
   return page;
+}
+
+export function convertObjectToItems(obj: Object): Items {
+  return Object.keys(obj).map(key => {
+    const item = new Item();
+
+    item.name = key;
+    item.value = obj[key];
+
+    return item;
+  });
 }
 
 export function objectIsEmpty(obj: Object): boolean {

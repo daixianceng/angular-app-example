@@ -1,40 +1,44 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs/Rx';
+
+import { CalculationStore } from 'app/stores';
 
 @Component({
   selector: 'app-overview',
-  templateUrl: './overview.component.html'
+  templateUrl: './overview.component.html',
+  styleUrls: ['./overview.component.scss']
 })
-export class OverviewComponent implements OnInit {
+export class OverviewComponent implements OnInit, OnDestroy {
 
-  ngOnInit() {
+  dailyPostsLoading: boolean;
+  dailyPostsResults: Object[];
+
+  readonly loadingSubscription: Subscription;
+  readonly dailyPostsSubscription: Subscription;
+
+  constructor(
+    private calculationStore: CalculationStore
+  ) {
+    this.loadingSubscription = calculationStore.dailyPostsLoading.subscribe((value) => {
+      this.dailyPostsLoading = value;
+    });
+    this.dailyPostsSubscription = calculationStore.dailyPosts.subscribe((value) => {
+      this.dailyPostsResults = [
+        {
+          name: 'Posts',
+          series: value
+        }
+      ];
+    });
   }
 
-  single = [
-    {
-      "name": "Germany",
-      "value": 8940000
-    },
-    {
-      "name": "USA",
-      "value": 5000000
-    },
-    {
-      "name": "France",
-      "value": 7200000
-    }
-  ];
+  ngOnInit() {
+    this.calculationStore.fetchDailyPosts();
+  }
 
-  // options
-  showXAxis = true;
-  showYAxis = true;
-  gradient = false;
-  showLegend = false;
-  showXAxisLabel = true;
-  xAxisLabel = 'Country';
-  showYAxisLabel = true;
-  yAxisLabel = 'Population';
-
-  colorScheme = {
-    domain: ['#5AA454', '#A10A28']
-  };
+  ngOnDestroy(): void {
+    this.loadingSubscription
+      .add(this.dailyPostsSubscription)
+      .unsubscribe();
+  }
 }

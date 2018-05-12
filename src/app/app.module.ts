@@ -5,16 +5,17 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import {
   AuthGuard,
+  AuthInterceptor,
+  CalculationService,
   CategoryService,
   DeactivateGuard,
+  ErrorResponseInterceptor,
   LoginService,
   PostService,
   StyleService,
-  UserService,
-  AuthInterceptor,
-  ErrorResponseInterceptor
+  UserService
 } from './services';
-import { AuthStore, CategoryStore, PostStore, UserStore } from './stores';
+import { AuthStore, CalculationStore, CategoryStore, PostStore, UserStore } from './stores';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -38,6 +39,7 @@ import { LoginModule, NotFoundModule } from './containers';
   ],
   providers: [
     AuthGuard,
+    CalculationService,
     CategoryService,
     DeactivateGuard,
     LoginService,
@@ -45,6 +47,7 @@ import { LoginModule, NotFoundModule } from './containers';
     StyleService,
     UserService,
     AuthStore,
+    CalculationStore,
     CategoryStore,
     PostStore,
     UserStore,
