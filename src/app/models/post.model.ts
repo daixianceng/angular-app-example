@@ -1,6 +1,6 @@
-import { Option } from './option.model';
+import { Options } from './option.model';
 
-export const POST_STATUS: Option[] = [
+export const POST_STATUS: Options = [
   { value: 1, label: 'Enabled' },
   { value: 0, label: 'Disabled' }
 ];
