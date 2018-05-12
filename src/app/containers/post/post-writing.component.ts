@@ -25,6 +25,7 @@ export class PostWritingComponent implements OnInit, CanComponentDeactivate {
   categories: BehaviorSubject<Category[]>;
   tags: BehaviorSubject<PostTags>;
   newTags: string[] = [];
+  submitted = false;
   editorOptions: Object = {
     heightMax: 1000,
     heightMin: 200,
@@ -122,7 +123,7 @@ export class PostWritingComponent implements OnInit, CanComponentDeactivate {
   }
 
   canDeactivate(): boolean {
-    return this.form.dirty ? confirm('Leave the current page?') : true;
+    return this.form.dirty && !this.submitted ? confirm('Leave the current page?') : true;
   }
 
   get title(): AbstractControl {
@@ -178,6 +179,7 @@ export class PostWritingComponent implements OnInit, CanComponentDeactivate {
       }
     })().subscribe((data: ResponseData) => {
       if (dataIsSuccess(data)) {
+        this.submitted = true;
         this.router.navigate(['post']);
       }
     }, (errorResp: HttpErrorResponse) => {
