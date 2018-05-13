@@ -33,3 +33,13 @@ body {
     width: initial;
   }
 }
+
+.actions {
+
+  .mat-button+.mat-button,
+  .mat-button+.mat-raised-button,
+  .mat-raised-button+.mat-button,
+  .mat-raised-button+.mat-raised-button {
+    margin-left: 8px;
+  }
+}

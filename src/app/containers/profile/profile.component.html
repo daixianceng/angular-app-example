@@ -11,15 +11,15 @@
           <div fxFlex="120px" fxFlex.xs>
             <img class="avatar" [src]="avatarSrc || model.avatarURL">
           </div>
-          <div fxFlex="24px" fxHide.xs></div>
-          <div fxFlex>
+          <div fxFlex="24px" fxFlex.xs="10px"></div>
+          <div class="actions" fxFlex>
             <input #avatarInput class="hidden" type="file" accept="image/png, image/jpeg" (change)="selectAvatar($event.target.files)">
             <button mat-raised-button color="primary" (click)="avatarInput.click()">Select a photo</button>
-            <span [matTooltip]="uploaded ? 'Avatar update successful' : avatarFile ? 'Click to update the avatar' : 'No file selected'" matTooltipPosition="right">
-              <button mat-raised-button color="accent" (click)="updateAvatar()" [disabled]="!avatarFile || uploaded">
-                {{uploaded ? 'Updated' : 'Update'}}
-              </button>
-            </span>
+            <button mat-raised-button color="accent" (click)="updateAvatar()" [disabled]="!avatarFile || uploaded"
+              [matTooltip]="uploaded ? 'Avatar update successful' : avatarFile ? 'Click to update the avatar' : 'No file selected'"
+              matTooltipPosition="right">
+              {{uploaded ? 'Updated' : 'Update'}}
+            </button>
           </div>
         </div>
       </mat-expansion-panel>
