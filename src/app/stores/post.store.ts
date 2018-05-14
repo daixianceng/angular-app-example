@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
 import { SortPropDir } from '@swimlane/ngx-datatable';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs/Rx';
-import { toPairs } from 'lodash';
 
 import { convertSortToString, convertPaginationToDatatablePage } from 'app/common';
 import { Post, PostTags, PostSearch, Pagination, DatatablePage } from 'app/models';
@@ -61,7 +60,8 @@ export class PostStore {
       params = params.set('sort', convertSortToString(sort));
     }
 
-    toPairs(searchModel).forEach(([key, value]) => {
+    Object.keys(searchModel).forEach((key: string) => {
+      const value = searchModel[key];
       if (value) {
         params = params.set(`PostSearch[${key}]`, String(value));
       }
