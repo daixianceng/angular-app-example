@@ -19,6 +19,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   avatarSrc: string | undefined;
   avatarFile: File | undefined;
   uploaded = false;
+  avatarTooSmall = false;
+  avatarTooLarge = false;
 
   modelSubscription: Subscription;
 
@@ -63,6 +65,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.modelSubscription.unsubscribe();
   }
 
+  get avatarInvalid(): boolean {
+    return this.avatarTooSmall || this.avatarTooLarge;
+  }
+
   get username(): AbstractControl {
     return this.form.get('username');
   }
@@ -91,8 +97,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.avatarSrc = e.target['result'];
       };
       reader.readAsDataURL(file);
+      this.avatarTooSmall = file.size < 100;
+      this.avatarTooLarge = file.size > 1024 * 200;
     } else {
       this.avatarSrc = undefined;
+      this.avatarTooSmall = false;
+      this.avatarTooLarge = false;
     }
   }
 

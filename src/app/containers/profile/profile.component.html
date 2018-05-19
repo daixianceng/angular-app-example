@@ -15,11 +15,21 @@
           <div class="actions" fxFlex>
             <input #avatarInput class="hidden" type="file" accept="image/png, image/jpeg" (change)="selectAvatar($event.target.files)">
             <button mat-raised-button color="primary" (click)="avatarInput.click()">Select a photo</button>
-            <button mat-raised-button color="accent" (click)="updateAvatar()" [disabled]="!avatarFile || uploaded"
+            <button mat-raised-button color="accent" (click)="updateAvatar()" [disabled]="!avatarFile || avatarInvalid || uploaded"
               [matTooltip]="uploaded ? 'Avatar update successful' : avatarFile ? 'Click to update the avatar' : 'No file selected'"
               matTooltipPosition="right">
               {{uploaded ? 'Updated' : 'Update'}}
             </button>
+            <div class="error-wrapper">
+              <mat-error>
+                <ng-template [ngIf]="avatarTooSmall">
+                  Avatar size cannot be less then 100B
+                </ng-template>
+                <ng-template [ngIf]="avatarTooLarge">
+                  Avatar size cannot be greater then 200KB
+                </ng-template>
+              </mat-error>
+            </div>
           </div>
         </div>
       </mat-expansion-panel>
