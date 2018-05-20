@@ -1,11 +1,7 @@
 {
   "/api": {
-    "target": {
-      "host": "yii2-app-example.backend-api",
-      "protocol": "http:",
-      "port": 80
-    },
-    "secure": false,
+    "target": "https://backend.zhaidongxi.com/api",
+    "secure": true,
     "changeOrigin": true,
     "pathRewrite": {
       "^/api": ""
