@@ -12,6 +12,7 @@ import {
   ErrorResponseInterceptor,
   LoginService,
   PostService,
+  ReversalAuthGuard,
   StyleService,
   UserService
 } from './services';
@@ -20,7 +21,7 @@ import { AuthStore, CalculationStore, CategoryStore, PostStore, UserStore } from
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
-import { LOGIN_URL, TIME_RANGE_SEPARATOR } from 'app/common';
+import { HOME_URL, LOGIN_URL, TIME_RANGE_SEPARATOR } from 'app/common';
 import { MainModule } from './layouts';
 import { LoginModule, NotFoundModule } from './containers';
 
@@ -44,6 +45,7 @@ import { LoginModule, NotFoundModule } from './containers';
     DeactivateGuard,
     LoginService,
     PostService,
+    ReversalAuthGuard,
     StyleService,
     UserService,
     AuthStore,
@@ -52,8 +54,12 @@ import { LoginModule, NotFoundModule } from './containers';
     PostStore,
     UserStore,
     {
+      provide: HOME_URL,
+      useValue: ''
+    },
+    {
       provide: LOGIN_URL,
-      useValue: '/login'
+      useValue: 'login'
     },
     {
       provide: TIME_RANGE_SEPARATOR,

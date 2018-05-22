@@ -13,6 +13,7 @@ import { Observable } from 'rxjs/Rx';
 import { isPlainObject, isString } from 'lodash';
 
 import { dataIsSuccess, LOGIN_URL } from 'app/common';
+import { AuthStore } from 'app/stores';
 
 @Injectable()
 export class ErrorResponseInterceptor implements HttpInterceptor {
@@ -20,6 +21,7 @@ export class ErrorResponseInterceptor implements HttpInterceptor {
   constructor(
     private router: Router,
     private snackBar: MatSnackBar,
+    private authStore: AuthStore,
     @Inject(LOGIN_URL) private loginUrl: string
   ) { }
 
@@ -33,6 +35,7 @@ export class ErrorResponseInterceptor implements HttpInterceptor {
     }, (err: any) => {
       if (err instanceof HttpErrorResponse) {
         if (err.status === 401) {
+          this.authStore.logout();
           this.router.navigateByUrl(this.loginUrl);
         } else if (err.status === 422 && err.statusText === 'Data Validation Failed.') {
           // Nothing to do
