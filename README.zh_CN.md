@@ -10,8 +10,8 @@
 
 [Demo](https://backend.zhaidongxi.com/) 账户信息：
 
-- Username: `admin`
-- Password: `admin`
+- Username: `demo`
+- Password: `demo`
 
 **注意：请不要修改密码，你可以为自己创建一个账户**
 

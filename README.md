@@ -12,8 +12,8 @@ This is an example app for [Angular](https://github.com/angular/angular).
 
 The [demo](https://backend.zhaidongxi.com/) account information:
 
-- Username: `admin`
-- Password: `admin`
+- Username: `demo`
+- Password: `demo`
 
 **Note: Please don't change the password. You can add an account for yourself**
 
