@@ -1,7 +1,7 @@
 # angular-app-example
 
 <p align="center">
-  <a href="https://backend.zhaidongxi.com/" target="_blank">
+  <a href="https://demo.zhaidongxi.com/angular-app-example/" target="_blank">
     <img src="./media.gif" alt="angular-app-example" />
   </a>
 </p>
@@ -10,7 +10,7 @@ This is an example app for [Angular](https://github.com/angular/angular).
 
 [中文文档](./README.zh_CN.md)
 
-The [demo](https://backend.zhaidongxi.com/) account information:
+The [demo](https://demo.zhaidongxi.com/angular-app-example/) account information:
 
 - Username: `demo`
 - Password: `demo`
@@ -45,7 +45,7 @@ npm install
 npm start
 ```
 
-Now you can open `localhost:4200` in your borwser. The project depends on the API of [yii2-app-example](https://github.com/daixianceng/yii2-app-example). This is a clean and beautiful RESTful API, you will love it. The project has a default proxy to `https://backend.zhaidongxi.com/api`, so you do not need to install `yii2-app-example`.
+Now you can open `localhost:4200` in your borwser. The project depends on the API of [yii2-app-example](https://github.com/daixianceng/yii2-app-example). This is a clean and beautiful RESTful API, you will love it. The project has a default proxy to `https://demo.zhaidongxi.com/yii2-app-example-backend-api`, so you do not need to install `yii2-app-example`.
 
 Compile the project:
 

@@ -1,14 +1,14 @@
 # angular-app-example
 
 <p align="center">
-  <a href="https://backend.zhaidongxi.com/" target="_blank">
+  <a href="https://demo.zhaidongxi.com/angular-app-example/" target="_blank">
     <img src="./media.gif" alt="angular-app-example" />
   </a>
 </p>
 
 这是一个[Angular](https://github.com/angular/angular)应用的例子
 
-[Demo](https://backend.zhaidongxi.com/) 账户信息：
+[Demo](https://demo.zhaidongxi.com/angular-app-example/) 账户信息：
 
 - Username: `demo`
 - Password: `demo`
@@ -43,7 +43,7 @@ npm install
 npm start
 ```
 
-现在你可以在浏览器中打开`localhost:4200`开始体验。项目依赖于[yii2-app-example](https://github.com/daixianceng/yii2-app-example)的API，这是一个干净、漂亮的RESTful API，你一定会爱上它。项目有一个默认指向`https://backend.zhaidongxi.com/api`的代理，所以你不需要安装`yii2-app-example`。
+现在你可以在浏览器中打开`localhost:4200`开始体验。项目依赖于[yii2-app-example](https://github.com/daixianceng/yii2-app-example)的API，这是一个干净、漂亮的RESTful API，你一定会爱上它。项目有一个默认指向`https://demo.zhaidongxi.com/yii2-app-example-backend-api`的代理，所以你不需要安装`yii2-app-example`。
 
 编译项目:
 
