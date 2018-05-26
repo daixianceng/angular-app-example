@@ -5,7 +5,7 @@
       <form [formGroup]="form" (ngSubmit)="submit($event)" novalidate>
         <div fxLayout="column">
           <mat-form-field fxFlex>
-            <input matInput placeholder="Username" formControlName="username">
+            <input matInput autocomplete="nope" placeholder="Username" formControlName="username">
             <mat-error>
               <ng-template [ngIf]="username.hasError('required')">
                 Username is required.
@@ -16,7 +16,7 @@
             </mat-error>
           </mat-form-field>
           <mat-form-field fxFlex>
-            <input matInput type="password" placeholder="Password" formControlName="password">
+            <input matInput type="password" autocomplete="nope" placeholder="Password" formControlName="password">
             <mat-error>
               <ng-template [ngIf]="password.hasError('required')">
                 Password is required.

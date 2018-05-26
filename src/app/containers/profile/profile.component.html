@@ -45,7 +45,7 @@
         <div fxLayout="row" fxLayout.xs="column">
           <div fxFlex>
             <mat-form-field>
-              <input matInput placeholder="Username" formControlName="username">
+              <input matInput autocomplete="nope" placeholder="Username" formControlName="username">
             </mat-form-field>
             <mat-error>
               <ng-template [ngIf]="username.hasError('minlength') || username.hasError('maxlength')">
@@ -74,7 +74,7 @@
         <div fxLayout="row" fxLayout.xs="column">
           <div fxFlex>
             <mat-form-field>
-              <input matInput placeholder="Email" formControlName="email">
+              <input matInput autocomplete="nope" placeholder="Email" formControlName="email">
             </mat-form-field>
             <mat-error>
               <ng-template [ngIf]="email.hasError('email')">
