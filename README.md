@@ -20,6 +20,7 @@ The [demo](https://demo.zhaidongxi.com/angular-app-example/) account information
 This application provides the following features:
 
 - Google [Material](https://github.com/angular/material2) Design
+- Sass themes
 - User Login
 - [Charts](https://github.com/swimlane/ngx-charts) and [Datatable](https://github.com/swimlane/ngx-datatable)
 - Create/Update/Delete Data
