@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { SortPropDir } from '@swimlane/ngx-datatable';
-import { Subscription } from 'rxjs/Rx';
+import { BehaviorSubject } from 'rxjs';
 
 import { objectIsEmpty } from 'app/common';
 import { CategoryStore, PostStore } from 'app/stores';
@@ -12,41 +12,25 @@ import { PostDeletionDialogComponent } from './post-deletion-dialog.component';
 @Component({
   templateUrl: './post.component.html'
 })
-export class PostComponent implements OnInit, OnDestroy {
+export class PostComponent implements OnInit {
 
-  loading: boolean;
-  rows: Post[];
-  page: DatatablePage;
-  sorts: SortPropDir[];
-  searchModel: PostSearch;
+  readonly loading: BehaviorSubject<boolean>;
+  readonly rows: BehaviorSubject<Post[]>;
+  readonly page: BehaviorSubject<DatatablePage>;
+  readonly sorts: BehaviorSubject<SortPropDir[]>;
+  readonly searchModel: BehaviorSubject<PostSearch>;
   currModel: Post | undefined = undefined;
-
-  loadingSubscription: Subscription;
-  rowsSubscription: Subscription;
-  pageSubscription: Subscription;
-  sortsSubscription: Subscription;
-  searchModelSubscription: Subscription;
 
   constructor(
     private categoryStore: CategoryStore,
     private postStore: PostStore,
     private dialog: MatDialog
   ) {
-    this.loadingSubscription = postStore.loading.subscribe((value) => {
-      this.loading = value;
-    });
-    this.rowsSubscription = postStore.items.subscribe((value) => {
-      this.rows = value;
-    });
-    this.pageSubscription = postStore.page.subscribe((value) => {
-      this.page = value;
-    });
-    this.sortsSubscription = postStore.sorts.subscribe((value) => {
-      this.sorts = value;
-    });
-    this.searchModelSubscription = postStore.search.subscribe((value) => {
-      this.searchModel = value;
-    });
+    this.loading = postStore.loading;
+    this.rows = postStore.items;
+    this.page = postStore.page;
+    this.sorts = postStore.sorts;
+    this.searchModel = postStore.search;
   }
 
   ngOnInit(): void {
@@ -54,17 +38,8 @@ export class PostComponent implements OnInit, OnDestroy {
     this.postStore.fetchData();
   }
 
-  ngOnDestroy(): void {
-    this.loadingSubscription
-      .add(this.rowsSubscription)
-      .add(this.pageSubscription)
-      .add(this.sortsSubscription)
-      .add(this.searchModelSubscription)
-      .unsubscribe();
-  }
-
   get hasSearch(): boolean {
-    return !objectIsEmpty(this.searchModel);
+    return !objectIsEmpty(this.searchModel.value);
   }
 
   getCategoryLabel(id: string): string {
@@ -87,7 +62,7 @@ export class PostComponent implements OnInit, OnDestroy {
      * `DataTableComponent` sets offset to 0 in `onColumnSort` method when sort is applied.
      * @see https://github.com/swimlane/ngx-datatable/issues/765
      */
-    const page = { ...this.page } as DatatablePage;
+    const page = { ...this.page.value } as DatatablePage;
     page.offset = 0;
     this.postStore.page.next(page);
 
@@ -97,7 +72,7 @@ export class PostComponent implements OnInit, OnDestroy {
 
   search(): void {
     const dialogRef = this.openSearchDialog({
-      model: this.searchModel,
+      model: this.searchModel.value,
       callback: (model: PostSearch): void => {
         this.postStore.search.next(model);
         this.postStore.fetchData();

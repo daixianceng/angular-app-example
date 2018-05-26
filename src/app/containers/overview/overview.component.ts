@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs/Rx';
+import { BehaviorSubject, Subscription } from 'rxjs';
 
 import { CalculationStore } from 'app/stores';
 
@@ -10,18 +10,15 @@ import { CalculationStore } from 'app/stores';
 })
 export class OverviewComponent implements OnInit, OnDestroy {
 
-  dailyPostsLoading: boolean;
+  readonly dailyPostsLoading: BehaviorSubject<boolean>;
   dailyPostsResults: Object[];
 
-  readonly loadingSubscription: Subscription;
   readonly dailyPostsSubscription: Subscription;
 
   constructor(
     private calculationStore: CalculationStore
   ) {
-    this.loadingSubscription = calculationStore.dailyPostsLoading.subscribe((value) => {
-      this.dailyPostsLoading = value;
-    });
+    this.dailyPostsLoading = calculationStore.dailyPostsLoading;
     this.dailyPostsSubscription = calculationStore.dailyPosts.subscribe((value) => {
       this.dailyPostsResults = [
         {
@@ -37,8 +34,6 @@ export class OverviewComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.loadingSubscription
-      .add(this.dailyPostsSubscription)
-      .unsubscribe();
+    this.dailyPostsSubscription.unsubscribe();
   }
 }

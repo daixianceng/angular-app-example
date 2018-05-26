@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { SortPropDir } from '@swimlane/ngx-datatable';
-import { Subscription } from 'rxjs/Rx';
+import { BehaviorSubject } from 'rxjs';
 
 import { objectIsEmpty, SCENARIO_CREATE, SCENARIO_UPDATE } from 'app/common';
 import { UserStore } from 'app/stores';
@@ -13,57 +13,32 @@ import { UserDeletionDialogComponent } from './user-deletion-dialog.component';
 @Component({
   templateUrl: './user.component.html'
 })
-export class UserComponent implements OnInit, OnDestroy {
+export class UserComponent implements OnInit {
 
-  loading: boolean;
-  rows: User[];
-  page: DatatablePage;
-  sorts: SortPropDir[];
-  searchModel: UserSearch;
+  readonly loading: BehaviorSubject<boolean>;
+  readonly rows: BehaviorSubject<User[]>;
+  readonly page: BehaviorSubject<DatatablePage>;
+  readonly sorts: BehaviorSubject<SortPropDir[]>;
+  readonly searchModel: BehaviorSubject<UserSearch>;
   currModel: User | null = null;
-
-  loadingSubscription: Subscription;
-  rowsSubscription: Subscription;
-  pageSubscription: Subscription;
-  sortsSubscription: Subscription;
-  searchModelSubscription: Subscription;
 
   constructor(
     private userStore: UserStore,
     private dialog: MatDialog
   ) {
-    this.loadingSubscription = userStore.loading.subscribe((value) => {
-      this.loading = value;
-    });
-    this.rowsSubscription = userStore.items.subscribe((value) => {
-      this.rows = value;
-    });
-    this.pageSubscription = userStore.page.subscribe((value) => {
-      this.page = value;
-    });
-    this.sortsSubscription = userStore.sorts.subscribe((value) => {
-      this.sorts = value;
-    });
-    this.searchModelSubscription = userStore.search.subscribe((value) => {
-      this.searchModel = value;
-    });
+    this.loading = userStore.loading;
+    this.rows = userStore.items;
+    this.page = userStore.page;
+    this.sorts = userStore.sorts;
+    this.searchModel = userStore.search;
   }
 
   ngOnInit(): void {
     this.userStore.fetchData();
   }
 
-  ngOnDestroy(): void {
-    this.loadingSubscription
-      .add(this.rowsSubscription)
-      .add(this.pageSubscription)
-      .add(this.sortsSubscription)
-      .add(this.searchModelSubscription)
-      .unsubscribe();
-  }
-
   get hasSearch(): boolean {
-    return !objectIsEmpty(this.searchModel);
+    return !objectIsEmpty(this.searchModel.value);
   }
 
   openMenu(model: User): void {
@@ -81,7 +56,7 @@ export class UserComponent implements OnInit, OnDestroy {
      * `DataTableComponent` sets offset to 0 in `onColumnSort` method when sort is applied.
      * @see https://github.com/swimlane/ngx-datatable/issues/765
      */
-    const page = { ...this.page } as DatatablePage;
+    const page = { ...this.page.value } as DatatablePage;
     page.offset = 0;
     this.userStore.page.next(page);
 
@@ -91,7 +66,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
   search(): void {
     const dialogRef = this.openSearchDialog({
-      model: this.searchModel,
+      model: this.searchModel.value,
       callback: (model: UserSearch): void => {
         this.userStore.search.next(model);
         this.userStore.fetchData();

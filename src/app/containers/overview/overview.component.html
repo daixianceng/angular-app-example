@@ -1,7 +1,7 @@
 <div class="chart">
-  <mat-spinner *ngIf="dailyPostsLoading"></mat-spinner>
+  <mat-spinner *ngIf="dailyPostsLoading | async"></mat-spinner>
   <ngx-charts-line-chart
-    *ngIf="!dailyPostsLoading"
+    *ngIf="!(dailyPostsLoading | async)"
     [autoScale]="true"
     [gradient]="true"
     [legend]="false"
