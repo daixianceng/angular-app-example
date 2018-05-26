@@ -34,7 +34,7 @@
 
 .mat-card {
   background: {
-    image: url(if($app-theme-is-dark, '/assets/images/dark-drawer-background.jpg', '/assets/images/light-drawer-background.jpg'));
+    image: url(if($app-theme-is-dark, 'assets/images/dark-drawer-background.jpg', 'assets/images/light-drawer-background.jpg'));
     position: center center;
     repeat: repeat-x;
   }
