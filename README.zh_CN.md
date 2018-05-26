@@ -19,6 +19,8 @@
 
 - Google [材料](https://github.com/angular/material2) 设计
 - Sass 主题
+- 使用漂亮的 RESTful API
+- 拒绝 Cookies
 - 用户登录
 - [图表](https://github.com/swimlane/ngx-charts) 和 [数据表格](https://github.com/swimlane/ngx-datatable)
 - 创建/更新/删除 数据
