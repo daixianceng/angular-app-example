@@ -15,7 +15,7 @@ import { AuthStore } from 'app/stores/auth.store';
 @Injectable()
 export class ReversalAuthGuard implements CanActivate, CanActivateChild {
 
-  private user: BehaviorSubject<User | null>;
+  private readonly user: BehaviorSubject<User | null>;
 
   constructor(
     private authStore: AuthStore,

@@ -5,7 +5,7 @@ import { STYLE_HOST } from 'app/common';
 @Injectable()
 export class StyleService {
 
-  private stylesMap: Map<any, Node> = new Map();
+  private readonly stylesMap: Map<any, Node> = new Map();
 
   constructor(
     @Optional() @Inject(STYLE_HOST) private host: Node
