@@ -34,7 +34,10 @@
 
 .mat-card {
   background: {
-    image: url(if($app-theme-is-dark, 'assets/images/dark-drawer-background.jpg', 'assets/images/light-drawer-background.jpg'));
+
+    // The problem of relative URL does not seem to be resolved.
+    // https://github.com/angular/angular-cli/issues/4778#issuecomment-280798718
+    image: url(if($app-theme-is-dark, '../../../assets/images/dark-drawer-background.jpg', '../../../assets/images/light-drawer-background.jpg'));
     position: center center;
     repeat: repeat-x;
   }
