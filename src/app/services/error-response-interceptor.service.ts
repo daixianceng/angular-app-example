@@ -37,7 +37,7 @@ export class ErrorResponseInterceptor implements HttpInterceptor {
         if (err.status === 401) {
           this.authStore.logout();
           this.router.navigateByUrl(this.loginUrl);
-        } else if (err.status === 422 && err.statusText === 'Data Validation Failed.') {
+        } else if (err.status === 422) {
           // Nothing to do
         } else {
           let message = '';
