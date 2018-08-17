@@ -1,0 +1,29 @@
+@import 'app-theme';
+
+.cover-field {
+  margin-bottom: 10px;
+}
+
+.cover {
+  border: 3px dashed mat-color($app-theme-foreground, disabled-button);
+  border-radius: 3px;
+  height: 0;
+  padding-bottom: calc(2 / 3 * 100%);
+  position: relative;
+  text-align: center;
+
+  .cover-image {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    width: 100%;
+  }
+
+  .cover-placeholder {
+    color: mat-color($app-theme-foreground, disabled-text);
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: calc(50% - .5em);
+  }
+}

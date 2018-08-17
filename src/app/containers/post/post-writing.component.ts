@@ -13,7 +13,8 @@ import { Category, Post, PostTags, POST_STATUS, ErrorMessage, ResponseData } fro
 import { PostWritingTagDialogComponent } from './post-writing-tag-dialog.component';
 
 @Component({
-  templateUrl: './post-writing.component.html'
+  templateUrl: './post-writing.component.html',
+  styleUrls: ['./post-writing.component.scss']
 })
 export class PostWritingComponent implements OnInit, CanComponentDeactivate {
 
@@ -25,6 +26,11 @@ export class PostWritingComponent implements OnInit, CanComponentDeactivate {
   categories: BehaviorSubject<Category[]>;
   tags: BehaviorSubject<PostTags>;
   newTags: string[] = [];
+  coverSrc: string | undefined;
+  coverFile: File | undefined;
+  coverTooSmall = false;
+  coverTooLarge = false;
+  coverIsRequired = false;
   submitted = false;
   editorOptions: Object = {
     heightMax: 1000,
@@ -165,17 +171,53 @@ export class PostWritingComponent implements OnInit, CanComponentDeactivate {
     return uniq(this.tags.value.concat(this.newTags));
   }
 
+  get hasCover(): boolean {
+    return Boolean(this.coverSrc || (this.model && this.model.coverURL));
+  }
+
+  get hasCoverError(): boolean {
+    return this.coverTooSmall || this.coverTooLarge || (this.scenario === SCENARIO_CREATE && !this.coverFile);
+  }
+
   setModel(model): void {
     this.model = model;
     this.form.patchValue(model);
   }
 
+  selectCover(files: FileList): void {
+    const file: File | undefined = files[0];
+    this.coverFile = file;
+
+    if (file) {
+      const reader = new FileReader();
+
+      /**
+       * Is there a better solution?
+       * @see https://github.com/Microsoft/TypeScript/issues/299#issuecomment-168538829
+       */
+      reader.onload = (e: Event) => {
+        this.coverSrc = e.target['result'];
+      };
+      reader.readAsDataURL(file);
+      this.coverTooSmall = file.size < 1024 * 100;
+      this.coverTooLarge = file.size > 1024 * 1000;
+      this.coverIsRequired = false;
+    } else {
+      this.coverSrc = undefined;
+      this.coverTooSmall = false;
+      this.coverTooLarge = false;
+      if (this.scenario === SCENARIO_CREATE) {
+        this.coverIsRequired = true;
+      }
+    }
+  }
+
   submit(e: Event): void {
     (() => {
       if (this.scenario === SCENARIO_CREATE) {
-        return this.postStore.create(this.modelMerged);
+        return this.postStore.create(this.modelMerged, this.coverFile);
       } else {
-        return this.postStore.update(this.modelMerged);
+        return this.postStore.update(this.modelMerged, this.coverFile);
       }
     })().subscribe((data: ResponseData) => {
       if (dataIsSuccess(data)) {

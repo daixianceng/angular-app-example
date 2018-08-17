@@ -14,6 +14,8 @@ export class Post {
   key: string;
   tags: string;
   tagCollection: PostTags;
+  cover: string;
+  coverURL: string;
   intro: string;
   content: string;
   authorId: string;

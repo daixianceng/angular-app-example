@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
 
+import { convertModelToFormData } from 'app/common';
 import { Post } from 'app/models';
 import { environment } from 'environments/environment';
 
@@ -24,12 +25,21 @@ export class PostService {
     return this.httpClient.get(`${environment.apiBaseUrl}v1/post/${id}`);
   }
 
-  post(model: Post): Observable<any> {
-    return this.httpClient.post(`${environment.apiBaseUrl}v1/post`, { Post: model });
+  post(model: Post, file: File): Observable<any> {
+    const formData: FormData = convertModelToFormData(model, 'Post');
+    formData.append('file', file);
+    return this.httpClient.post(`${environment.apiBaseUrl}v1/post`, formData);
   }
 
-  put(model: Post): Observable<any> {
-    return this.httpClient.put(`${environment.apiBaseUrl}v1/post/${model.id}`, { Post: model });
+  put(model: Post, file: File | undefined): Observable<any> {
+    const url = `${environment.apiBaseUrl}v1/post/${model.id}`;
+    if (file) {
+      const formData: FormData = convertModelToFormData(model, 'Post');
+      formData.append('file', file);
+      return this.httpClient.post(url, formData);
+    } else {
+      return this.httpClient.put(url, { Post: model });
+    }
   }
 
   delete(id: number | string): Observable<any> {

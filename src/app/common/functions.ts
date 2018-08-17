@@ -45,6 +45,17 @@ export function convertObjectToItems(obj: Object): Items {
   });
 }
 
+export function convertModelToFormData(model: Object, formName: string | undefined): FormData {
+  const formData = new FormData();
+  convertObjectToItems(model).forEach((item: Item) => {
+    if (['string', 'number', 'boolean'].includes(typeof item.value)) {
+      const key = formName ? `${formName}[${item.name}]` : item.name;
+      formData.append(key, String(item.value));
+    }
+  });
+  return formData;
+}
+
 export function objectIsEmpty(obj: Object): boolean {
   return Object.values(obj).every(value => !value);
 }
