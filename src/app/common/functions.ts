@@ -45,12 +45,15 @@ export function convertObjectToItems(obj: Object): Items {
   });
 }
 
-export function convertModelToFormData(model: Object, formName: string | undefined): FormData {
-  const formData = new FormData();
+export function convertModelToFormData(model: Object, formName?: string | undefined, formData?: FormData | undefined): FormData {
+  formData = formData || new FormData();
   convertObjectToItems(model).forEach((item: Item) => {
+    const key = formName ? `${formName}[${item.name}]` : item.name;
     if (['string', 'number', 'boolean'].includes(typeof item.value)) {
-      const key = formName ? `${formName}[${item.name}]` : item.name;
       formData.append(key, String(item.value));
+    }
+    if ('object' === typeof item.value) {
+      convertModelToFormData(item.value, key, formData);
     }
   });
   return formData;
