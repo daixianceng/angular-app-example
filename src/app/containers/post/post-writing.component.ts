@@ -199,7 +199,7 @@ export class PostWritingComponent implements OnInit, CanComponentDeactivate {
         this.coverSrc = e.target['result'];
       };
       reader.readAsDataURL(file);
-      this.coverTooSmall = file.size < 1024 * 100;
+      this.coverTooSmall = file.size < 1024 * 10;
       this.coverTooLarge = file.size > 1024 * 1000;
       this.coverIsRequired = false;
     } else {
