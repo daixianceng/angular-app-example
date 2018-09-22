@@ -25,18 +25,25 @@ export class PostService {
     return this.httpClient.get(`${environment.apiBaseUrl}v1/post/${id}`);
   }
 
-  post(model: Post, file: File): Observable<any> {
-    const formData: FormData = convertModelToFormData(model, 'Post');
-    formData.append('file', file);
-    return this.httpClient.post(`${environment.apiBaseUrl}v1/post`, formData);
+  post(model: Post, file: File | undefined): Observable<any> {
+    const url = `${environment.apiBaseUrl}v1/post`;
+    if (file) {
+      const formData: FormData = convertModelToFormData(model, 'Post');
+      formData.append('file', file);
+      return this.httpClient.post(url, formData);
+    } else {
+      return this.httpClient.post(url, { Post: model });
+    }
   }
 
-  put(model: Post, file: File | undefined): Observable<any> {
+  put(model: Post, file: File | false | undefined): Observable<any> {
     const url = `${environment.apiBaseUrl}v1/post/${model.id}`;
     if (file) {
       const formData: FormData = convertModelToFormData(model, 'Post');
       formData.append('file', file);
       return this.httpClient.post(url, formData);
+    } else if (file === false) {
+      return this.httpClient.put(url, { Post: model, removeCover: true });
     } else {
       return this.httpClient.put(url, { Post: model });
     }

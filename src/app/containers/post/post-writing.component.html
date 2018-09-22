@@ -5,7 +5,7 @@
         <div fxLayout="row" fxLayout.xs="column">
           <div fxFlex>
             <div class="cover">
-              <img class="cover-image" *ngIf="hasCover; else coverPlaceholder" [src]="coverSrc || model.coverURL">
+              <img class="cover-image" *ngIf="hasCover; else coverPlaceholder" [src]="coverSrc">
               <ng-template #coverPlaceholder>
                 <div class="cover-placeholder mat-body-1">Cover 3:2 <br />(900px * 600px recommended)</div>
               </ng-template>
@@ -14,14 +14,13 @@
           <div fxFlex="24px" fxFlex.xs="16px"></div>
           <div fxFlex fxFlexAlign="center" fxFlexAlign.xs="left">
             <input #coverInput class="hidden" type="file" accept="image/png, image/jpeg" (change)="selectCover($event.target.files)">
-            <button mat-raised-button type="button" color="accent" (click)="coverInput.click()">Select an image</button>
+            <button mat-raised-button type="button" color="accent" (click)="coverInput.click()">Select an image</button>&nbsp;
+            <button *ngIf="!isCreation && !isRemoveCover" mat-raised-button type="button" color="warn" (click)="removeCover()">Remove</button>
+            <button *ngIf="!isCreation && isRemoveCover" mat-raised-button type="button" color="accent" (click)="resetCover()">Reset</button>
           </div>
         </div>
         <div class="error-wrapper">
           <mat-error>
-            <ng-template [ngIf]="coverIsRequired">
-              Cover is required
-            </ng-template>
             <ng-template [ngIf]="coverTooSmall">
               Cover size cannot be less then 10KB
             </ng-template>

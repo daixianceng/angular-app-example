@@ -21,7 +21,7 @@ export class PostWritingComponent implements OnInit, CanComponentDeactivate {
   scenario: string;
   form: FormGroup;
   formValue: any;
-  model: Post;
+  model: Post | undefined;
   statusOptions = POST_STATUS;
   categories: BehaviorSubject<Category[]>;
   tags: BehaviorSubject<PostTags>;
@@ -30,7 +30,6 @@ export class PostWritingComponent implements OnInit, CanComponentDeactivate {
   coverFile: File | undefined;
   coverTooSmall = false;
   coverTooLarge = false;
-  coverIsRequired = false;
   submitted = false;
   editorOptions: Object = {
     heightMax: 1000,
@@ -172,15 +171,24 @@ export class PostWritingComponent implements OnInit, CanComponentDeactivate {
   }
 
   get hasCover(): boolean {
-    return Boolean(this.coverSrc || (this.model && this.model.coverURL));
+    return Boolean(this.coverSrc);
   }
 
   get hasCoverError(): boolean {
-    return this.coverTooSmall || this.coverTooLarge || (this.scenario === SCENARIO_CREATE && !this.coverFile);
+    return this.coverTooSmall || this.coverTooLarge;
+  }
+
+  get isRemoveCover(): boolean {
+    return this.scenario === SCENARIO_UPDATE && !this.hasCover;
+  }
+
+  get isCreation(): boolean {
+    return this.scenario === SCENARIO_CREATE;
   }
 
   setModel(model): void {
     this.model = model;
+    this.coverSrc = model.coverURL;
     this.form.patchValue(model);
   }
 
@@ -201,23 +209,30 @@ export class PostWritingComponent implements OnInit, CanComponentDeactivate {
       reader.readAsDataURL(file);
       this.coverTooSmall = file.size < 1024 * 10;
       this.coverTooLarge = file.size > 1024 * 1000;
-      this.coverIsRequired = false;
     } else {
       this.coverSrc = undefined;
       this.coverTooSmall = false;
       this.coverTooLarge = false;
-      if (this.scenario === SCENARIO_CREATE) {
-        this.coverIsRequired = true;
-      }
     }
+  }
+
+  removeCover(): void {
+    this.coverFile = undefined;
+    this.coverSrc = undefined;
+    this.coverTooSmall = false;
+    this.coverTooLarge = false;
+  }
+
+  resetCover(): void {
+    this.coverSrc = this.model && this.model.coverURL || undefined;
   }
 
   submit(e: Event): void {
     (() => {
-      if (this.scenario === SCENARIO_CREATE) {
+      if (this.isCreation) {
         return this.postStore.create(this.modelMerged, this.coverFile);
       } else {
-        return this.postStore.update(this.modelMerged, this.coverFile);
+        return this.postStore.update(this.modelMerged, this.isRemoveCover ? false : this.coverFile);
       }
     })().subscribe((data: ResponseData) => {
       if (dataIsSuccess(data)) {

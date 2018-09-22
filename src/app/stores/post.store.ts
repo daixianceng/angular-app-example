@@ -70,11 +70,11 @@ export class PostStore {
     return params;
   }
 
-  create(model: Post, file: File): Observable<any> {
+  create(model: Post, file: File | undefined): Observable<any> {
     return this.postService.post(model, file);
   }
 
-  update(model: Post, file: File | undefined): Observable<any> {
+  update(model: Post, file: File | false | undefined): Observable<any> {
     return this.postService.put(model, file);
   }
 
