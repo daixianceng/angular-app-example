@@ -52,7 +52,7 @@ export function convertModelToFormData(model: Object, formName?: string | undefi
     if (['string', 'number', 'boolean'].includes(typeof item.value)) {
       formData.append(key, String(item.value));
     }
-    if ('object' === typeof item.value) {
+    if ('object' === typeof item.value && item.value) {
       convertModelToFormData(item.value, key, formData);
     }
   });
