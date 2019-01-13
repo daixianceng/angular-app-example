@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
-import { ObservableMedia } from '@angular/flex-layout';
+import { MediaObserver } from '@angular/flex-layout';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import * as moment from 'moment';
 
@@ -21,7 +21,7 @@ export class UserSearchDialogComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private mediaService: ObservableMedia,
+    private mediaService: MediaObserver,
     @Inject(MAT_DIALOG_DATA) data: any,
     @Inject(TIME_RANGE_SEPARATOR) private timeRangeSeparator: string
   ) {
